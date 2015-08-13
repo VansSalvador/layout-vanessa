@@ -31,6 +31,7 @@ div[class*="col_"] {padding-right:20px;margin-bottom:15px;}
 .col_25 {width:25%;}
 .col_50 {width:50%;}
 .col_70 {width:70%;}
+.col_100 {width:100%;}
 .wrap-main {max-width:1670px;}
 .wrap-content {margin-left:250px;}
 .nav-main {position:fixed;width:230px;top:0;bottom:0;left:0;background-color:#202020;color:#fff;}
@@ -86,7 +87,7 @@ div[class*="col_"] {padding-right:20px;margin-bottom:15px;}
 .t-14 {font-size:0.87rem;}
 .t-20 {font-size:1.25rem;line-height:20px;}
 .t-30, h2 {font-size:1.87rem;line-height:30px;}
-.t-60 {font-size:3.75rem;line-height:60px;}
+.t-60 {font-size:3.75rem;line-height:60px;margin-bottom:10px;}
 .t-gray, h2 {color:#999;}
 .t-red {color:#e73d23;}
 .l-n45 {line-height: 45px;}
@@ -205,6 +206,16 @@ th span, td span {white-space:nowrap;text-overflow:ellipsis;overflow:hidden;disp
 .calls-history li time {color:#535353;font-weight:700;position:absolute;right:15px;top: 15px;}
 .calls-history li.new:before {content:"";display:inline-block;border-radius:50%;width:7px;height:7px;background-color:#e73d23;position:absolute;top:20px;left:12px;}
 
+/*DIALOG*/
+.ui-dialog .ui-dialog-content, .ui-dialog {padding:0!important;}
+.ui-dialog .ui-widget-header {background: #fff;padding:15px!important;border:0;border-bottom:1px solid #cdcdcd;text-transform: uppercase;text-align: center;}
+.dialog-row {padding:15px;}
+.dialog-footer {padding:15px;border-top:1px solid #cdcdcd;}
+.ui-dialog-titlebar-close {background:none!important;border:0!important;width:auto!important;margin:0!important;padding:0!important;height:auto!important;right:15px!important;top:10px!important;}
+.ui-dialog-titlebar-close span {display: none!important;}
+.ui-dialog-titlebar-close:before {content:"x";display:block;font-weight: 300;font-size: 17px;}
+.dialog-footer button.red {color:#fff!important;}
+
 /*UI-ELEMENTS*/
 .ui-widget, .ui-widget * {font-family:'Lato', Arial, sans-serif!important;font-weight:400!important;font-size:14px!important;color:#565353!important;}
 .ui-selectmenu-button, .ui-selectmenu-button.ui-state-focus {border:1px solid #ccc!important;background:#fff!important;font-size:14px!important;}
@@ -227,8 +238,11 @@ th span, td span {white-space:nowrap;text-overflow:ellipsis;overflow:hidden;disp
 .ui-datepicker-close {color:#fff!important;background: #565353!important;border:0!important;}
 .ui-priority-secondary  {display:none!important;}
 .ui-priority-primary {float:left!important;}
-.ui-datepicker:before {content:"";display:block;position: absolute;top:-10px;right: 100px;background:url('../img/sprite.png') no-repeat -31px -2530px;width: 19px;height: 10px}
+.ui-datepicker:before {content:"";display:block;position: absolute;top:-10px;right: 100px;background:url('../img/sprite.png') no-repeat -31px -2530px;width: 19px;height: 10px;}
 .ui-datepicker {-webkit-box-shadow: 0px 4px 9px 2px rgba(0,0,0,0.27);-moz-box-shadow: 0px 4px 9px 2px rgba(0,0,0,0.27);box-shadow: 0px 4px 9px 2px rgba(0,0,0,0.27);}
+.ui-tooltip {background:#2f2c2d!important;box-shadow:0!important;border:0!important;border-radius:3px!important;width:180px!important;}
+.ui-tooltip:before {content: "";display: block;width: 19px;height: 10px;background:url('../img/sprite.png') no-repeat 0 -2735px;position: absolute;top: -9px;left: 20px;}
+.ui-tooltip, .ui-tooltip * {color:#fff!important;font-size:11px!important;}
 
 @media screen and (max-width: 1500px) {
 	.col_25 {width:33.3%;}

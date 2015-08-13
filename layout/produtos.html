@@ -70,7 +70,7 @@
 					        </ul>
 				        </li>
 					</ul>
-						<button class="btn red f-right m-r20">Gerar relatório de produtos</button>
+						<button class="btn red f-right m-r20" id="geraRelatorio">Gerar relatório de produtos</button>
 					</div>
 				</div>
 			</div>
@@ -140,7 +140,16 @@
 			</div>
 		</div>
 	</div>
-
+	<div id="dialogRelatorio" class="alldialog" title="Gerar relatório">
+		<div class="dialog-row">
+			<label class="d-block t-700 m-b5">Selecionar fornecedor(es) e categoria(s)</label>
+			<select class="input col_100"><option>Opção 01</option></select>
+		</div>
+		<div class="dialog-footer">
+			<button class="btn red">Download</button>
+			<button class="btn cancel">Cancelar</button>
+		</div>
+	</div>
    	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
    	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
    	<script src="js/dropit.js"></script>

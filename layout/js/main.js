@@ -34,3 +34,16 @@ $(function() {
 $(document).ready(function() {
     $('.dropitmenu').dropit();
 });
+$(function() {
+  $( ".alldialog" ).dialog({
+     autoOpen: false, 
+     modal: true,
+     hide: "puff",
+  });
+  $( "#geraRelatorio" ).click(function() {
+     $( "#dialogRelatorio" ).dialog( "open" );
+  });
+});
+$(function() {
+    $( document ).tooltip();
+});
