@@ -15,24 +15,45 @@
 		<ul>
 			<li>
 				<label class="d-block m-b5">E-mail</label>
-				<input type="text" class="input col_100" />
+				<input type="text" class="input col_100" id="txtEmail"/>
 			</li>
 			<li>
 				<label class="d-block m-b5">Senha</label>
 				<input type="text" class="input col_100" />
 			</li>
 			<li>
-				<button class="btn red col_100 t-center t-up">Entrar</button>
+				<button class="btn red col_100 t-center t-up" id="btnEntrar">Entrar</button>
 			</li>
 			<li class="t-center">
-				<a href="#">Não consegue acessar sua conta?</a>
+				<a href="mailto:suporte@epicom.com.br">Não consegue acessar sua conta?</a>
 			</li>
 		</ul>
 	</div>
 
    	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
    	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
-   	<script src="js/main.js"></script>
+   	<!--<script src="js/main.js"></script>-->
+   	<script type="text/javascript">
+
+   		$( document ).ready(function() {
+	    	
+			$( "#btnEntrar" ).click(function() {
+			  
+				if ( $("#txtEmail").val().length == 0  ) return;
+
+				if ( $("#txtEmail").val() == "erro@epicom.com.br" ){
+					alert('Erro no login');
+					return;
+				}
+
+				window.location.href = "vendas.html";
+
+			});
+
+		});
+
+
+   	</script>
 
 </body>
 </html>
