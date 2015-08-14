@@ -42,7 +42,12 @@
 				if ( $("#txtEmail").val().length == 0  ) return;
 
 				if ( $("#txtEmail").val() == "erro@epicom.com.br" ){
-					alert('Erro no login');
+					alert('Erro no sistema tente mais tarde.');
+					return;
+				}
+
+				if ( $("#txtEmail").val() == "invalido@epicom.com.br" ){
+					alert('E-mail ou senha inválida');
 					return;
 				}
 
