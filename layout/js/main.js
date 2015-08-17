@@ -43,6 +43,18 @@ $(function() {
   $( "#geraRelatorio" ).click(function() {
      $( "#dialogRelatorio" ).dialog( "open" );
   });
+  $( ".editUser" ).click(function() {
+     $( "#dialogUser" ).dialog( "open" );
+  });
+  $( ".deleteUser" ).click(function() {
+     $( "#dialogDeleteUser" ).dialog( "open" );
+  });
+  $( ".editCat" ).click(function() {
+     $( "#dialogCat" ).dialog( "open" );
+  });
+  $( ".deleteCat" ).click(function() {
+     $( "#dialogDeleteCat" ).dialog( "open" );
+  });
 });
 $(function() {
     $( document ).tooltip();
