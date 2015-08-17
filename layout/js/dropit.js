@@ -49,11 +49,19 @@
                     });
 
                     // Close if outside click
-                    $(document).on('click', function(){
+                    //$(document).on('click', function(){
+                        $('body').click(function(e) {
                         settings.beforeHide.call(this);
-                        $('.dropit-open').removeClass('dropit-open').find('.dropit-submenu').hide();
+                            if ($(e.target).closest('.dropit-submenu').length === 0) {
+                                $('.dropit-open').removeClass('dropit-open').find('.dropit-submenu').hide();
+                            }
                         settings.afterHide.call(this);
-                    });
+                        });
+                    //});
+
+                      $(".applyfilter").click(function() {
+                         $('.dropit-open').removeClass('dropit-open').find('.dropit-submenu').hide();
+                      });
 
                     // If hover
                     if(settings.action == 'mouseenter'){
