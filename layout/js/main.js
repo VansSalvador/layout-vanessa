@@ -1,3 +1,5 @@
+
+
 $(function() {
     $( "select.ui-input" ).selectmenu();
     $( "#datepicker" ).datepicker({
@@ -12,23 +14,40 @@ $(function() {
     closeText : 'Aplicar',
     numberOfMonths: 2,
     showButtonPanel:true,
-    beforeShow: function( input ) {  
- setTimeout(function() {  
-   var buttonPane = $( input )  
-     .datepicker( "widget" )  
-     .find( ".ui-datepicker-buttonpane" );  
-  
-   var btn = $('<ul><li><button type="button" class="ui-datepicker-current ui-state-default ui-corner-all">Personalizado</button></li><li><button type="button" class="ui-datepicker-current ui-state-default ui-corner-all">Hoje</button></li><li><button type="button" class="ui-datepicker-current ui-state-default ui-corner-all">Ontem</button></li><li><button type="button" class="ui-datepicker-current ui-state-default ui-corner-all">Ultimos 7 dias</button></li><li><button type="button" class="ui-datepicker-current ui-state-default ui-corner-all">Ultimos 30 dias</button></li><li><button type="button" class="ui-datepicker-current ui-state-default ui-corner-all">Mês passado</button></li></ul>');  
-   btn  
-    .unbind("click")  
-   .bind("click", function () {  
-    $.datepicker._clearDate( input );  
-  });  
-  
-   btn.prependTo( buttonPane );  
-  
- }, 1 );  
-      }  
+    beforeShow: function( input ) {
+        setTimeout(function() {
+            var buttonPane = $( input )
+                .datepicker( "widget" )
+                .find( ".ui-datepicker-buttonpane" );
+
+            $( "<button>", {
+                text: "Cancelar",
+                click: function() {
+                //Code to clear your date field (text box, read only field etc.) I had to remove the line below and add custom code here
+                    $.datepicker._clearDate( input );
+                }
+            }).appendTo( buttonPane ).addClass("ui-datepicker-clear ui-state-default ui-priority-primary ui-corner-all");
+            $( "<ul><li><button type='button' class='ui-datepicker-current ui-state-default ui-corner-all'>Personalizado</button></li><li><button type='button' class='ui-datepicker-current ui-state-default ui-corner-all'>Hoje</button></li><li><button type='button' class='ui-datepicker-current ui-state-default ui-corner-all'>Ontem</button></li><li><button type='button' class='ui-datepicker-current ui-state-default ui-corner-all'>Ultimos 7 dias</button></li><li><button type='button' class='ui-datepicker-current ui-state-default ui-corner-all'>Ultimos 30 dias</button></li><li><button type='button' class='ui-datepicker-current ui-state-default ui-corner-all'>Mês passado</button></li></ul>", {
+            }).prependTo( buttonPane ).addClass("ui-datepicker-clear ui-state-default ui-priority-primary ui-corner-all");
+        }, 1 );
+    },
+    onChangeMonthYear: function( year, month, instance ) {
+        setTimeout(function() {
+            var buttonPane = $( instance )
+                .datepicker( "widget" )
+                .find( ".ui-datepicker-buttonpane" );
+
+            $( "<button>", {
+                text: "Cancelar",
+                click: function() {
+                //Code to clear your date field (text box, read only field etc.) I had to remove the line below and add custom code here
+                    $.datepicker._clearDate( instance.input );
+                }
+            }).appendTo( buttonPane ).addClass("ui-datepicker-clear ui-state-default ui-priority-primary ui-corner-all");
+            $( "<ul><li><button type='button' class='ui-datepicker-current ui-state-default ui-corner-all'>Personalizado</button></li><li><button type='button' class='ui-datepicker-current ui-state-default ui-corner-all'>Hoje</button></li><li><button type='button' class='ui-datepicker-current ui-state-default ui-corner-all'>Ontem</button></li><li><button type='button' class='ui-datepicker-current ui-state-default ui-corner-all'>Ultimos 7 dias</button></li><li><button type='button' class='ui-datepicker-current ui-state-default ui-corner-all'>Ultimos 30 dias</button></li><li><button type='button' class='ui-datepicker-current ui-state-default ui-corner-all'>Mês passado</button></li></ul>", {
+            }).prependTo( buttonPane ).addClass("ui-datepicker-clear ui-state-default ui-priority-primary ui-corner-all");
+        }, 1 );
+    }
 });
 });
 $(document).ready(function() {
@@ -57,5 +76,5 @@ $(function() {
   });
 });
 $(function() {
-    $( document ).tooltip();
+    $( ".tool" ).tooltip();
 });
