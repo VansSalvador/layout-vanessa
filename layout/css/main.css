@@ -127,6 +127,7 @@ h2 {display:inline-block;margin-right:20px;}
 .user-menu {display:inline-block;padding:0 30px 0 10px;background:url('../img/sprite.png') no-repeat right -1976px;cursor:pointer;}
 select {height:33px;}
 textarea {resize:none;}
+textarea, #dialogCham {height: 120px}
 #datepicker {width:230px;}
 .table-pagination .input {min-width:70px;}
 .hr {display:block;text-align:center;margin:15px 0;position:relative;background-color:#cfcfcf;height:1px;}
@@ -139,9 +140,12 @@ textarea {resize:none;}
 .loading label {position:absolute;z-index:2;top:10px;left:10px;}
 li.error {position:relative;}
 .error-message {display:none;position: absolute;color:#fff;background-color:#e73c50;right:30px;top:-12px;padding:8px 10px;border-radius:2px;font-size: 12px;font-weight: 700;}
+.alldialog .error-message {right:0;}
 .error .error-message {display:inline-block;}
 .error-message:before {content:"";position:absolute;display:block;background:url('../img/sprite.png') no-repeat right -2735px;width:12px;height:6px;bottom:-3px;right:15px;}
+.alldialog .error-message:before {right:4px;}
 .error .input {background:url('../img/sprite.png') no-repeat right -2852px;border:1px solid #999;}
+.feedback {text-align: center;color:#e73c50;display: none;}
 
 /*ICONS*/
 .ico {display:inline-block;margin-right:20px;}

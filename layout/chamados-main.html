@@ -66,7 +66,7 @@
 			</div>
 			<div class="row">
 				<div class="f-left">
-					<button class="btn red m-r20">Abrir novo chamado</button>
+					<button class="btn red m-r20 openCham" id="">Abrir novo chamado</button>
 				</div>
 				<div class="f-right col_70 t-right">
 					<span class="m-r20">Mostrando 15 de 10.163 registrados</span>
@@ -133,7 +133,20 @@
 			</div>
 		</div>
 	</div>
-
+	<div id="dialogOpenCham" class="alldialog" title="Abrir Novo Chamado">
+		<div class="dialog-row">
+			<label class="d-block t-700 m-b5" for="title">Título</label>
+			<input type="text" class="input col_100 m-b5" id="title" />
+			<label class="d-block t-700 m-b5" for="subject">Assunto</label>
+			<select class="input col_100 m-b5" id="subject"><option>Opção 01</option></select>
+			<label class="d-block t-700 m-b5" for="msg">Mensagem</label>
+			<textarea class="input col_100 m-b5" id="msg"></textarea>
+		</div>
+		<div class="dialog-footer">
+			<button class="btn red">Enviar</button>
+			<button class="btn cancel">Cancelar</button>
+		</div>
+	</div>
    	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
    	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
    	<script src="js/dropit.js"></script>

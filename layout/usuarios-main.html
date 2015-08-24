@@ -139,22 +139,44 @@
 	</div>
 	<div id="dialogUser" class="alldialog" title="Editar Usuário">
 		<div class="dialog-row">
-			<label class="d-block t-700 m-b5" for="id">ID</label>
-			<input type="text" class="input col_100 m-b5" id="id" />
-			<label class="d-block t-700 m-b5" for="user">Usuário</label>
-			<input type="text" class="input col_100 m-b5" id="user" />
-			<label class="d-block t-700 m-b5" for="email">E-mail</label>
-			<input type="text" class="input col_100 m-b5" id="email" />
-			<label class="d-block t-700 m-b5" for="profile">Selecione o perfil</label>
-			<select class="input col_100 m-b5" id="profile"><option>Opção 01</option></select>
-			<label class="d-block t-700 m-b5" for="passw">Senha</label>
-			<input type="text" class="input col_100 m-b5" id="passw" />
-			<label class="d-block t-700 m-b5" for="passw2">Confirmar senha</label>
-			<input type="text" class="input col_100 m-b5" for="passw2" />
-			<input type="checkbox" value="ativo" id="active" ><label class="t-700 m-l10" for="active">Ativo</label>
+			<ul>
+				<li>
+					<label class="d-block t-700 m-b5" for="id">ID</label>
+					<input type="text" class="input col_100 m-b5" id="id" />
+				</li>
+				<li>
+					<span class="error-message" id="lblUserValidation"></span>
+					<label class="d-block t-700 m-b5" for="user">Usuário</label>
+					<input type="text" class="input col_100 m-b5" id="user" />
+				</li>
+				<li class="emailwrap">
+					<span class="error-message" id="lblEmailValidation"></span>
+					<label class="d-block t-700 m-b5" for="email">E-mail</label>
+					<input type="text" class="input col_100 m-b5" id="email" />
+				</li>
+				<li>
+					<label class="d-block t-700 m-b5" for="profile">Selecione o perfil</label>
+					<select class="input col_100 m-b5" id="profile"><option>Opção 01</option></select>
+				</li>
+				<li class="passwrap">
+					<span class="error-message" id="lblPassword"></span>
+					<label class="d-block t-700 m-b5" for="password">Senha</label>
+					<input type="password" class="input col_100 m-b5" id="password" />
+				</li>
+				<li class="passvalwrap">
+					<span class="error-message" id="lblPasswordValidation"></span>
+					<label class="d-block t-700 m-b5" for="password_confirm">Confirmar senha</label>
+					<input type="password" class="input col_100 m-b5" for="password_confirm" />
+				</li>
+				<li>
+					<input type="checkbox" value="ativo" id="active" ><label class="t-700 m-l10" for="active">Ativo</label>
+				</li>
+				<li id="errormessage" class="feedback">Erro no sistema tente mais tarde.</li>
+				<li id="invalidmessage" class="feedback">E-mail ou senha inválida</li>
+			</ul>
 		</div>
 		<div class="dialog-footer">
-			<button class="btn red">Adicionar</button>
+			<button class="btn red" id="btnSave">Adicionar</button>
 			<button class="btn cancel">Cancelar</button>
 		</div>
 	</div>
@@ -172,5 +194,69 @@
    	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
    	<script src="js/dropit.js"></script>
    	<script src="js/main.js"></script>
+
+   	<script type="text/javascript">
+
+   		function validateForm(){
+
+   			var IsValid = true;
+
+   			 $("#lblEmailValidation").hide();
+   			 $("li.error").removeClass("error");
+
+   			if ( $("#user").val().length == 0  ) {
+   				 IsValid = false;
+   				 $("#lblUserValidation").text("Preencha esse campo"); 
+   				 $("#lblUserValidation").show();
+   				 $("#user").closest("li").addClass("error");
+   			}
+
+   			 
+   			if ( $("#email").val().length == 0  ) {
+   				 IsValid = false;
+   				 $("#lblEmailValidation").text("Preencha esse campo"); 
+   				 $("#lblEmailValidation").show();
+   				 $("#email").closest("li").addClass("error");
+   			}else{
+   				
+   				  var pattern = new RegExp(/^[+a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i);
+    			 if ( ! pattern.test( $("#email").val()) ){
+
+    			 	IsValid = false;
+	   				$("#lblEmailValidation").text("E-mail inválido"); 
+	   				$("#lblEmailValidation").show();
+   				 	$("#email").closest("li").addClass("error");
+    			 }
+   			}
+
+   			if ( $("#password").val().length == 0  ) {
+   				 IsValid = false;
+   				 $("#lblPassword").text("Preencha esse campo"); 
+   				 $("#lblPassword").show();
+   				 $("#password").closest("li").addClass("error");
+   			}
+
+   			if ( $("#password_confirm").val().length == 0  ) {
+   				 IsValid = false;
+   				 $("#lblPasswordValidation").text("Preencha esse campo"); 
+   				 $("#lblPasswordValidation").show();
+   				 $("#password_confirm").closest("li").addClass("error");
+   			}
+
+   		}
+
+   		$( document ).ready(function() {
+	    	
+			$( "#btnSave" ).click(function() {
+			  
+				if ( ! validateForm()  ) return;
+
+			});
+
+		});
+
+
+   	</script>
+
 </body>
 </html>

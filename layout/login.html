@@ -13,16 +13,18 @@
 	<div class="box-login">
 		<h1>EPICOM</h1>
 		<ul>
-			<li class="error">
-				<span class="error-message" id="lblEmailValidation" style="display:none;"></span>
+			<li class="emailwrap">
+				<span class="error-message" id="lblEmailValidation"></span>
 				<label class="d-block m-b5">E-mail</label>
 				<input type="text" class="input col_100" id="txtEmail"/>
 			</li>
-			<li class="error">
-				<span class="error-message" id="lblPasswordValidation" style="display:none;"></span>
+			<li class="passwrap">
+				<span class="error-message" id="lblPasswordValidation"></span>
 				<label class="d-block m-b5">Senha</label>
 				<input type="text" class="input col_100"  id="txtPassword" />
 			</li>
+			<li id="errormessage" class="feedback">Erro no sistema tente mais tarde.</li>
+			<li id="invalidmessage" class="feedback">E-mail ou senha inválida</li>
 			<li>
 				<button class="btn red col_100 t-center t-up" id="btnEntrar">Entrar</button>
 			</li>
@@ -42,12 +44,14 @@
 
    			 $("#lblPasswordValidation").hide();
    			 $("#lblEmailValidation").hide();
+   			 $("li.error").removeClass("error");
 
 
    			if ( $("#txtEmail").val().length == 0  ) {
    				 IsValid = false;
    				 $("#lblEmailValidation").text("Preencha esse campo"); 
    				 $("#lblEmailValidation").show();
+   				 $(".emailwrap").addClass("error");
    			}else{
    				
    				  var pattern = new RegExp(/^[+a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i);
@@ -56,6 +60,7 @@
     			 	IsValid = false;
 	   				$("#lblEmailValidation").text("E-mail inválido"); 
 	   				$("#lblEmailValidation").show();
+   				 	$(".emailwrap").addClass("error");
     			 }
    			}
    			
@@ -64,6 +69,7 @@
    				 IsValid = false;
    				 $("#lblPasswordValidation").text("Preencha esse campo"); 
    				 $("#lblPasswordValidation").show();
+   				 $(".passwrap").addClass("error");
    			}
 
    			return IsValid;
@@ -77,12 +83,12 @@
 				if ( ! validateForm()  ) return;
 
 				if ( $("#txtEmail").val() == "erro@epicom.com.br" ){
-					alert('Erro no sistema tente mais tarde.');
+					$("#errormessage").show();
 					return;
 				}
 
 				if ( $("#txtEmail").val() == "invalido@epicom.com.br" ){
-					alert('E-mail ou senha inválida');
+					$("#invalidmessage").show();
 					return;
 				}
 
