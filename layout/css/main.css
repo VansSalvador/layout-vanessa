@@ -135,9 +135,9 @@ textarea, #dialogCham {height: 120px}
 .list-categorias li * {display: inline-block;vertical-align:middle;}
 .list-categorias span {overflow: hidden;text-overflow: ellipsis;width: 195px;white-space: nowrap;}
 .list-categorias .remove {color:#fff!important;background-color:#999999;border-radius:50%;width:17px;height:17px;text-align:center;font-size: 11px!important;line-height: 18px;font-weight: 700!important;cursor:pointer;}
-.loading {position:relative;border:1px solid #444444;color:#fff;width:100%;display:block;text-align:center;font-weight:700;border-radius:2px;padding:8px 20px;}
+.loading {position:relative;border:1px solid #444444;color:#fff;width:100%;display:block;text-align:center;font-weight:700;border-radius:2px;padding:8px 20px;height: 35px;background-color: #666;}
 .loading .load-bar {background-color: #444;position:absolute;top:0;bottom:0;left:0;z-index: 1;}
-.loading label {position:absolute;z-index:2;top:10px;left:10px;}
+.loading label {position:absolute;z-index:2;top: 8px;left: 50%;width: 160px;display: block;margin-left: -80px;}
 li.error {position:relative;}
 .error-message {display:none;position: absolute;color:#fff;background-color:#e73c50;right:30px;top:-12px;padding:8px 10px;border-radius:2px;font-size: 12px;font-weight: 700;}
 .alldialog .error-message {right:0;}
