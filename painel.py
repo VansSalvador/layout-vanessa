@@ -13,4 +13,4 @@ jinja_options.update(dict(
 app.jinja_options = jinja_options
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
