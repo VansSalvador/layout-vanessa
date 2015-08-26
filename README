@@ -1,0 +1,3 @@
+Painel de parceiros Epicom.
+
+Após inicializar via painel.py o acesso é feito atualmente através do endereço http://127.0.0.1:5000/static/index.html
