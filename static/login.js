@@ -8,13 +8,8 @@ app.controller('Login',['$scope','$http',function($scope,$http){
             }else{
                 alert("Falha de login!!");//TODO
             }
-            // this callback will be called asynchronously
-            // when the response is available
           }, function(response) {
             alert("Erro!");//TODO
-            // called asynchronously if an error occurs
-            // or server returns response with an error status.
           });
-        console.log(user);
     };
 }]);

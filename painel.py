@@ -1,5 +1,5 @@
-from flask import Flask,request,url_for
-from flaskext.auth import Auth,AuthUser,login_required
+from flask import Flask,request,url_for,render_template
+from flaskext.auth import Auth,AuthUser,login_required,logout
 import flask,time,hashlib
 
 app = Flask(__name__)
@@ -43,7 +43,12 @@ def login():
 @app.route('/painel')
 @login_required()
 def logon():
-    return 'admin' if AuthUser.load_current_user().role=='admin' else 'user'
+    return render_template("logged.html",role=AuthUser.load_current_user().role)
+
+@app.route('/logoff')
+def logoff():
+    logout()
+    return 'ok'
 
 if __name__ == '__main__':
     app.SERVER_NAME='myapp.dev:5000'
