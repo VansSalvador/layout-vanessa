@@ -5,3 +5,8 @@ Após inicializar via painel.py o acesso é feito atualmente através do endereço h
 Dependências:
 
     pip install flask-auth
+
+Para rodar testes no IE11:
+
+    1. Ative a chave de registro FEATURE_BFCACHE como descrito em https://code.google.com/p/selenium/wiki/InternetExplorerDriver#Required_Configuration
+    2. Habilitar o modo protegido em todas as zonas em Internet Options > Security
