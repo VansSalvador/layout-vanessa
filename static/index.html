@@ -6,9 +6,10 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 		<link href='http://fonts.googleapis.com/css?family=Lato:400,300,300italic,700,700italic,900,900italic,400italic,100italic,100' rel='stylesheet' type='text/css'>
 		<link rel="stylesheet" href="css/main.css">
+		<link rel="stylesheet" href="css/login.css">
 		<link rel="stylesheet" href="jqueryui.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>
-		<script src="login.js"></script>
+		<script src="login.controller.js"></script>
 	</head>
 	<body class="login">
 		<form name="login" class="box-login" ng-controller="Login as login" novalidate>
@@ -29,8 +30,7 @@
 					<label class="d-block m-b5">Senha</label>
 					<input type="password" class="input col_100"  id="txtPassword"  ng-model="password" required name="password"/>
 				</li>
-				<li id="errormessage" class="feedback">Erro no sistema tente mais tarde.</li>
-				<li id="invalidmessage" class="feedback">E-mail ou senha inválida</li>
+				<li id="loginmessage" class="feedback">{{error}}</li>
 				<li>
 					<input class="btn red col_100 t-center t-up" id="btnEntrar" value="Entrar" ng-click="dologin(user,password)"
                            ng-disabled="login.user.$error.email || login.user.$error.required || login.password.$error.required" />
@@ -40,70 +40,5 @@
 				</li>
 			</ul>
 		</form>
-
-		<!--script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
-		<script type="text/javascript">
-
-			function validateForm(){
-
-				var IsValid = true;
-
-				 $("#lblPasswordValidation").hide();
-				 $("#lblEmailValidation").hide();
-				 $("li.error").removeClass("error");
-
-
-				if ( $("#txtEmail").val().length == 0  ) {
-					 IsValid = false;
-					 $("#lblEmailValidation").text("Preencha esse campo");
-					 $("#lblEmailValidation").show();
-					 $(".emailwrap").addClass("error");
-				}else{
-
-					  var pattern = new RegExp(/^[+a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i);
-					 if ( ! pattern.test( $("#txtEmail").val()) ){
-
-						IsValid = false;
-						$("#lblEmailValidation").text("E-mail inválido");
-						$("#lblEmailValidation").show();
-						$(".emailwrap").addClass("error");
-					 }
-				}
-
-
-				if ( $("#txtPassword").val().length == 0  ) {
-					 IsValid = false;
-					 $("#lblPasswordValidation").text("Preencha esse campo");
-					 $("#lblPasswordValidation").show();
-					 $(".passwrap").addClass("error");
-				}
-
-				return IsValid; 
-
-			}
-
-			$( document ).ready(function() {
-
-				$( "#btnEntrar" ).click(function() {
-
-					if ( ! validateForm()  ) return;
-
-					if ( $("#txtEmail").val() == "erro@epicom.com.br" ){
-						$("#errormessage").show();
-						return;
-					}
-
-					if ( $("#txtEmail").val() == "invalido@epicom.com.br" ){
-						$("#invalidmessage").show();
-						return;
-					}
-
-					window.location.href = "vendas.html";
-
-				});
-
-			});
-		</script-->
 	</body>
 </html>

@@ -3,9 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <title></title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>
+    <script>
+        function logoff(){
+            var r=new XMLHttpRequest();
+            r.open('get','/logoff',false);
+            r.send();
+            alert('ok');
+        }
+        var app=angular.module('ajaxtest', []);
+        app.controller('Test',['$scope','$http',function($scope,$http){
+            $scope.nglogoff=function(){
+                $http.get('/logoff', {}).
+                  then(function(response) {
+                    alert('ok');
+                  }, function(response) {
+                  });
+            };
+        }]);
+    </script>
 </head>
 <body>
     [[role]]
     <br/><a href="/logoff">Logout</a>
+    <br/><a onclick="logoff()" href="#">Logout AJAX</a>
+    <br/><a href="#" ng-app="ajaxtest" ng-controller="Test as test" ng-click="nglogoff()" >Logout Angular</a>
 </body>
 </html>

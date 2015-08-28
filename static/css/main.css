@@ -321,5 +321,3 @@ th span, td span {white-space:nowrap;text-overflow:ellipsis;overflow:hidden;disp
 .downselect.dropit .dropit-submenu li:last-child {background-position: 0 -2663px;}
 .downselect.dropit .dropit-submenu li a {color:#535353;}
 .downselect.dropit .dropit-submenu {width:90px;left:50%;margin-left:-55px;min-width:90px;top:150%;padding:10px 10px 0 10px;}
-
-#btnEntrar:disabled{opacity:.5;}
