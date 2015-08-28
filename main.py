@@ -21,6 +21,7 @@ auth=Auth(app)
 app.auth.hash_algorithm = lambda to_encrypt: hashlib.sha1(to_encrypt.encode('utf-8'))
 users={}
 
+#TODO
 @app.before_request
 def init_users():
     admin = AuthUser(username='admin@epicom.com.br')
