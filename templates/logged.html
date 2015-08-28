@@ -23,10 +23,10 @@
         }]);
     </script>
 </head>
-<body>
+<body ng-app="ajaxtest">
     [[role]]
     <br/><a href="/logoff">Logout</a>
     <br/><a onclick="logoff()" href="#">Logout AJAX</a>
-    <br/><a href="#" ng-app="ajaxtest" ng-controller="Test as test" ng-click="nglogoff()" >Logout Angular</a>
+    <br/><a href="#" ng-controller="Test as test" ng-click="nglogoff()" >Logout Angular</a>
 </body>
 </html>

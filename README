@@ -1,8 +1,8 @@
 Painel de parceiros Epicom.
 
-Ap�s inicializar via painel.py o acesso � feito atualmente atrav�s do endere�o http://127.0.0.1:5000/static/index.html
+Após inicializar via painel.py o acesso é feito atualmente através do endereço http://127.0.0.1:5000/static/index.html
 
-Depend�ncias:
+Dependências:
 
     pip install flask-auth
 
@@ -10,3 +10,4 @@ Para rodar testes no IE11:
 
     1. Ative a chave de registro FEATURE_BFCACHE como descrito em https://code.google.com/p/selenium/wiki/InternetExplorerDriver#Required_Configuration
     2. Habilitar o modo protegido em todas as zonas em Internet Options > Security
+    3. Devido a um bug no webdriver IE 64 bits a função sendKeys é extremamente lenta. Até ser resolvido use o driver 32 bits mesmo em arquiteturas 64. Mais informações: https://code.google.com/p/selenium/issues/detail?id=5116
