@@ -1,5 +1,7 @@
 from flask import Flask,request,url_for,render_template
 from flaskext.auth import Auth,AuthUser,login_required,logout
+from src.model import User,Company
+from mongoalchemy.session import Session
 import flask,time,hashlib
 
 app = Flask(__name__)
@@ -17,28 +19,45 @@ app.jinja_options = jinja_options
 app.secret_key='^mu0n!22#yqy=8a5x1hg5%1!2#dedsn=&cd&$ur3pzqiw+#$yd'
 
 auth=Auth(app)
-#auth.hash_algorithm='MD5'
 app.auth.hash_algorithm = lambda to_encrypt: hashlib.sha1(to_encrypt.encode('utf-8'))
 users={}
 
-#TODO
-@app.before_request
-def init_users():
-    admin = AuthUser(username='admin@epicom.com.br')
-    admin.set_and_encrypt_password('password')
-    admin.role='admin'
-    user = AuthUser(username='user@epicom.com.br')
-    user.set_and_encrypt_password('password')
-    user.role='user'
-    users['admin@epicom.com.br']= admin
-    users['user@epicom.com.br']=user
+db = Session.connect('painel')
+
+@app.before_first_request
+def loadusers():#TODO
+    c=db.query(Company).first()
+    if c==None:
+        print('populating...')
+        admin = User(username='admin@epicom.com.br')
+        admin.set_and_encrypt_password('password')
+        admin.role='admin'
+        admin.active=True
+        user = User(username='user@epicom.com.br')
+        user.set_and_encrypt_password('password')
+        user.role='user'
+        user.active=True
+        epicom = Company(name='Epicom',token='x',users=[admin,user])
+        db.insert(epicom)
+    else:
+        print(c.name)
+        for u in c.users:
+            print(u.username)
 
 @app.route('/login',methods=['POST'])
 def login():
     username = request.json['user']
-    if username in users:
-        if users[username].authenticate(request.json['pass']):
-            return '302'
+    company=db.query(Company).filter({'users': {'$elemMatch': {'username': username}}}).first()
+    if company==None:
+        return '403'
+    for user in company.users:
+        if user.username==username:
+            #must instantiate an AuthUser that is serializable to JSON, unlike the MongoAlchemy data object
+            jsonuser=AuthUser(username=user.username,password=user.password,salt=user.salt)
+            jsonuser.role=user.role
+            if jsonuser.authenticate(request.json['pass']):
+                return '302'
+            break
     return '403'
 
 @app.route('/painel')
