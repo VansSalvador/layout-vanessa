@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>EPICOM</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	<link href='http://fonts.googleapis.com/css?family=Lato:400,300,300italic,700,700italic,900,900italic,400italic,100italic,100' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="css/jqueryui.css">
+	<link href="css/jquery.datepick.css" rel="stylesheet">
+</head>
+<body>
+	<div class="nav-user">
+		<div class="wrap-main">
+			<div class="f-right col_50">
+				<ul class="f-right">
+					<li class="d-inblock"><a href="chamados-main.html"><i class="ico icon-voice"></i><span class="notification">2</span></a></li>
+					<li class="d-inblock">
+						<ul class="dropitmenu">
+							<li>
+								&bull; <a href="#" class="user-menu">Sérgio Andrade</a>
+								<ul>
+						            <li><a href="usuarios-main.html">Usuários</a></li>
+						            <li><a href="login.html">Sair</a></li>
+						        </ul>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="wrap-main">
+		<div class="nav-main">
+			<h1><a href="#">EPICOM</a></h1>
+			<span class="t-up">Menu</span>
+			<ul>
+				<li class="menu-vendas"><a href="vendas.html"><i class="ico icon-vendas"></i>Vendas</a></li>
+				<li class="menu-pedidos"><a href="pedidos-view.html"><i class="ico icon-pedidos"></i>Pedidos</a></li>
+				<li class="menu-produtos active">
+					<a href="produtos.html"><i class="ico icon-produtos"></i>Produtos</a>
+					<ul>
+						<li><a href="produtos-categorias.html">Categorias</a></li>
+						<li><a href="produtos-categoria-fornecedor.html" class="active">Categoria do Fornecedor</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+		<div class="wrap-content">
+			<div class="row">
+				<div class="f-left col_50">
+					<h2 class="f-left">Pedidos</h2>
+				</div>
+				<div class="f-left col_50">
+					<button class="f-right ico icon-print"></button>
+					<ul class="dropitmenu f-right downselect">
+						<li>
+							<a href="#" class="ico icon-download"></a>
+							<ul>
+					            <li><a href="#">Excel</a></li>
+					            <li><a href="#">PDF</a></li>
+					        </ul>
+				        </li>
+					</ul>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col_100 t-right">
+					<span class="m-r20">Mostrando 15 de 10.163 registrados</span>
+					<input class="input search" placeholder="Buscar"> 
+					<input class="input" placeholder="data" id="datepick"> 
+				</div>
+			</div>
+			<div class="row">
+				<div class="col_100">
+					<div class="box-white">
+						<table border="0" cellspacing="0" cellpadding="0" class="table-category partners">
+							<thead>
+								<tr>
+									<th>Data</th>
+									<th>Pedido Epicom</th>
+									<th>Cliente</th>
+									<th>Valor(R$)</th>
+									<th>Status</th>
+									<th>Fornecedor</th>
+									<th>Produto(s)</th>
+									<th>Detalhes</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>20 jun</td>
+									<td>v6759978csw - 01 675979</td>
+									<td>Carlos Tavares</td>
+									<td>1.899,00</td>
+									<td>Confirmado</td>
+									<td>Ponto Frio Centauro</td>
+									<td>4</td>
+									<td><a href="pedidos.html"><span class="t-red">Visualizar</span></a></td>
+								</tr>
+								<tr>
+									<td>20 jun</td>
+									<td>v6759978csw - 01 675979</td>
+									<td>Carlos Tavares</td>
+									<td>1.899,00</td>
+									<td>Confirmado</td>
+									<td>Ponto Frio Centauro</td>
+									<td>4</td>
+									<td><a href="pedidos.html"><span class="t-red">Visualizar</span></a></td>
+								</tr>
+								<tr>
+									<td>20 jun</td>
+									<td>v6759978csw - 01 675979</td>
+									<td>Carlos Tavares</td>
+									<td>1.899,00</td>
+									<td>Confirmado</td>
+									<td>Ponto Frio Centauro</td>
+									<td>4</td>
+									<td><a href="pedidos.html"><span class="t-red">Visualizar</span></a></td>
+								</tr>
+								<tr>
+									<td>20 jun</td>
+									<td>v6759978csw - 01 675979</td>
+									<td>Carlos Tavares</td>
+									<td>1.899,00</td>
+									<td>Confirmado</td>
+									<td>Ponto Frio Centauro</td>
+									<td>4</td>
+									<td><a href="pedidos.html"><span class="t-red">Visualizar</span></a></td>
+								</tr>
+								<tr>
+									<td>20 jun</td>
+									<td>v6759978csw - 01 675979</td>
+									<td>Carlos Tavares</td>
+									<td>1.899,00</td>
+									<td>Confirmado</td>
+									<td>Ponto Frio Centauro</td>
+									<td>4</td>
+									<td><a href="pedidos.html"><span class="t-red">Visualizar</span></a></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="row m-b15">
+				<div class="col_100">
+					<div class="f-right table-pagination ">
+						<label>Exibir</label> <select class="input"><option>10 linhas</option></select> 
+						<ul>
+							<li><a href="#">Anterior</a></li>
+							<li><a href="#">6</a></li>
+							<li><a href="#">7</a></li>
+							<li><a href="#">8</a></li>
+							<li><a href="#">9</a></li>
+							<li><a href="#">10</a></li>
+							<li><a href="#">Próximo</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+   	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+   	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+   	<script src="js/dropit.js"></script>
+   	<script src="js/jquery.plugin.js"></script>
+   	<script src="js/jquery.datepick.js"></script>
+   	<script src="js/main.js"></script>
+</body>
+</html>

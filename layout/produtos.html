@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>EPICOM</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	<link href='http://fonts.googleapis.com/css?family=Lato:400,300,300italic,700,700italic,900,900italic,400italic,100italic,100' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="css/jqueryui.css">
+</head>
+<body>
+	<div class="nav-user">
+		<div class="wrap-main">
+			<div class="f-right col_50">
+				<ul class="f-right">
+					<li class="d-inblock"><a href="chamados-main.html"><i class="ico icon-voice"></i><span class="notification">2</span></a></li>
+					<li class="d-inblock">
+						<ul class="dropitmenu">
+							<li>
+								&bull; <a href="#" class="user-menu">Sérgio Andrade</a>
+								<ul>
+						            <li><a href="usuarios-main.html">Usuários</a></li>
+						            <li><a href="login.html">Sair</a></li>
+						        </ul>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="wrap-main">
+		<div class="nav-main">
+			<h1><a href="#">EPICOM</a></h1>
+			<span class="t-up">Menu</span>
+			<ul>
+				<li class="menu-vendas"><a href="vendas.html"><i class="ico icon-vendas"></i>Vendas</a></li>
+				<li class="menu-pedidos"><a href="pedidos-view.html"><i class="ico icon-pedidos"></i>Pedidos</a></li>
+				<li class="menu-produtos active">
+					<a href="produtos.html" class="active"><i class="ico icon-produtos"></i>Produtos</a>
+					<ul>
+						<li><a href="produtos-categorias.html">Categorias</a></li>
+						<li><a href="produtos-categoria-fornecedor.html">Categoria do Fornecedor</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+		<div class="wrap-content">
+			<div class="row m-b15">
+				<div class="col_100">
+					<div class="">
+						<h2 class="f-left">Produtos</h2>
+					</div>
+					<div class="f-right t-right">
+						<select class="f-right input ui-input">
+							<option>Slower</option>
+						      <option>Slow</option>
+						      <option selected="selected">Todos os fornecedores</option>
+						      <option>Fast</option>
+						      <option>Faster</option>
+						</select>
+						<button class="f-right ico icon-print"></button>
+						<ul class="dropitmenu f-right downselect">
+						<li>
+							<a href="#" class="ico icon-download"></a>
+							<ul>
+					            <li><a href="#">Excel</a></li>
+					            <li><a href="#">PDF</a></li>
+					        </ul>
+				        </li>
+					</ul>
+						<button class="btn red f-right m-r20" id="geraRelatorio">Gerar relatório de produtos</button>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col_25 f-left">
+					<label class="f-700 d-block m-b5">Produtos</label>
+					<div class="box-white dash-list-item">
+						<ul>
+							<li class="t-center t-700">
+								<span>Ipad Air</span>
+							</li>
+							<li class="t-center t-700">
+								<span>Televisão</span>
+							</li>
+							<li class="t-center t-700">
+								<span>Tênis</span>
+							</li>
+							<li class="t-center t-700">
+								<span>Geladeira</span>
+							</li>
+							<li class="t-center t-700">
+								<span>Camiseta</span>
+							</li>
+						</ul>
+						<div class="t-center">
+							<span class="t-red t-700"><i class="ico icon-download"></i>Baixar a lista completa</span>
+						</div>
+					</div>
+				</div>
+				<div class="col_25 f-left">
+					<label class="f-700 d-block m-b5">Produtos dos fornecedores</label>
+					<div class="box-white dash single t-center">
+						<span class="t-900 t-60 d-block"><i class="ico icon-cube"></i>238.045<label class="t-up t-700 t-14 t-gray d-block">Total</label></span>
+					</div>
+				</div>
+				<div class="col_25 f-left">
+					<label class="f-700 d-block m-b5">Produtos importados para loja</label>
+					<div class="box-white dash single t-center">
+						<span class="t-900 t-60 d-block"><i class="ico icon-rocket"></i>57.084</span>
+					</div>
+				</div>
+				<div class="col_25 f-left">
+					<label class="f-700 d-block m-b5">Top marcas</label>
+					<div class="box-white dash-list-item">
+						<ul>
+							<li class="t-center t-700">
+								<span>Apple</span>
+							</li>
+							<li class="t-center t-700">
+								<span>HP</span>
+							</li>
+							<li class="t-center t-700">
+								<span>Reebok</span>
+							</li>
+							<li class="t-center t-700">
+								<span>Nike</span>
+							</li>
+							<li class="t-center t-700">
+								<span>Adidas</span>
+							</li>
+						</ul>
+						<div class="t-center">
+							<span class="t-red t-700"><i class="ico icon-download"></i>Baixar a lista completa</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="dialogRelatorio" class="alldialog" title="Gerar relatório">
+		<div class="dialog-row">
+			<label class="d-block t-700 m-b5">Selecionar fornecedor(es) e categoria(s)</label>
+			<select class="input col_100"><option>Opção 01</option></select>
+		</div>
+		<div class="dialog-footer">
+			<button class="btn red">Download</button>
+			<button class="btn cancel">Cancelar</button>
+		</div>
+	</div>
+   	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+   	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+   	<script src="js/dropit.js"></script>
+   	<script src="js/main.js"></script>
+</body>
+</html>

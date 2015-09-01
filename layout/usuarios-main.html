@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>EPICOM</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	<link href='http://fonts.googleapis.com/css?family=Lato:400,300,300italic,700,700italic,900,900italic,400italic,100italic,100' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="css/jqueryui.css">
+</head>
+<body>
+	<div class="nav-user">
+		<div class="wrap-main">
+			<div class="f-right col_50">
+				<ul class="f-right">
+					<li class="d-inblock"><a href="chamados-main.html"><i class="ico icon-voice"></i><span class="notification">2</span></a></li>
+					<li class="d-inblock">
+						<ul class="dropitmenu">
+							<li>
+								&bull; <a href="#" class="user-menu">Sérgio Andrade</a>
+							    <ul>
+						            <li><a href="usuarios-main.html">Usuários</a></li>
+						            <li><a href="login.html">Sair</a></li>
+						        </ul>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="wrap-main">
+		<div class="nav-main">
+			<h1><a href="#">EPICOM</a></h1>
+			<span class="t-up">Menu</span>
+			<ul>
+				<li class="menu-vendas"><a href="vendas.html"><i class="ico icon-vendas"></i>Vendas</a></li>
+				<li class="menu-pedidos"><a href="pedidos-view.html"><i class="ico icon-pedidos"></i>Pedidos</a></li>
+				<li class="menu-produtos active">
+					<a href="produtos.html"><i class="ico icon-produtos"></i>Produtos</a>
+					<ul>
+						<li><a href="produtos-categorias.html" class="active">Categorias</a></li>
+						<li><a href="produtos-categoria-fornecedor.html">Categoria do Fornecedor</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+		<div class="wrap-content">
+			<div class="row">
+				<div class="f-left col_50">
+					<h2 class="f-left">Usuários</h2>
+				</div>
+				<div class="f-left col_50">
+					<button class="f-right ico icon-print"></button>
+					<ul class="dropitmenu f-right downselect">
+						<li>
+							<a href="#" class="ico icon-download"></a>
+							<ul>
+					            <li><a href="#">Excel</a></li>
+					            <li><a href="#">PDF</a></li>
+					        </ul>
+				        </li>
+					</ul>
+				</div>
+			</div>
+			<div class="row">
+				<div class="f-left">
+					<button class="btn red m-r20 editUser" id="">Adicionar usuário</button>
+				</div>
+				<div class="f-right col_70 t-right">
+					<span class="m-r20">Mostrando 15 de 10.163 registrados</span>
+					<input class="input search" placeholder="Buscar">
+				</div>
+			</div>
+			<div class="row">
+				<div class="col_100">
+					<label class="f-700 d-block m-b5">Listagem</label>
+					<div class="box-white">
+						<table border="0" cellspacing="0" cellpadding="0" class="table-category users">
+							<thead>
+								<tr>
+									<th>ID</th>
+									<th>Usuário</th>
+									<th>E-mail</th>
+									<th>Perfil</th>
+									<th>Criação</th>
+									<th>Ações</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>4365</td>
+									<td>Bruce Wayne</td>
+									<td>bruce@waynetech.com</td>
+									<td><span class="tool" title="Usuário Administrador pode gerenciar Usuários, Editar, Colaborar, Ler e Analisar">Administrador</span></td>
+									<td>30 jun, 2015</td>
+									<td><button class="ico icon-edit editUser" id=""></button> <button class="ico icon-delete deleteUser" id=""></button></td>
+								</tr>
+								<tr>
+									<td>4365</td>
+									<td>Bruce Wayne</td>
+									<td>bruce@waynetech.com</td>
+									<td><span class="tool" title="Usuário Administrador pode gerenciar Usuários, Editar, Colaborar, Ler e Analisar">Administrador</span></td>
+									<td>30 jun, 2015</td>
+									<td><button class="ico icon-edit editUser" id=""></button> <button class="ico icon-delete deleteUser" id=""></button></td>
+								</tr>
+								<tr>
+									<td>4365</td>
+									<td>Bruce Wayne</td>
+									<td>bruce@waynetech.com</td>
+									<td><span class="tool" title="Usuário Administrador pode gerenciar Usuários, Editar, Colaborar, Ler e Analisar">Administrador</span></td>
+									<td>30 jun, 2015</td>
+									<td><button class="ico icon-edit editUser" id=""></button> <button class="ico icon-delete deleteUser" id=""></button></td>
+								</tr>
+
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="row m-b15">
+				<div class="col_100">
+					<div class="f-right table-pagination ">
+						<label>Exibir</label> <select class="input"><option>10 linhas</option></select> 
+						<ul>
+							<li><a href="#">Anterior</a></li>
+							<li><a href="#">6</a></li>
+							<li><a href="#">7</a></li>
+							<li><a href="#">8</a></li>
+							<li><a href="#">9</a></li>
+							<li><a href="#">10</a></li>
+							<li><a href="#">Próximo</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="dialogUser" class="alldialog" title="Editar Usuário">
+		<div class="dialog-row">
+			<ul>
+				<li>
+					<label class="d-block t-700 m-b5" for="id">ID</label>
+					<input type="text" class="input col_100 m-b5" id="id" />
+				</li>
+				<li>
+					<span class="error-message" id="lblUserValidation"></span>
+					<label class="d-block t-700 m-b5" for="user">Usuário</label>
+					<input type="text" class="input col_100 m-b5" id="user" />
+				</li>
+				<li class="emailwrap">
+					<span class="error-message" id="lblEmailValidation"></span>
+					<label class="d-block t-700 m-b5" for="email">E-mail</label>
+					<input type="text" class="input col_100 m-b5" id="email" />
+				</li>
+				<li>
+					<label class="d-block t-700 m-b5" for="profile">Selecione o perfil</label>
+					<select class="input col_100 m-b5" id="profile"><option>Opção 01</option></select>
+				</li>
+				<li class="passwrap">
+					<span class="error-message" id="lblPassword"></span>
+					<label class="d-block t-700 m-b5" for="password">Senha</label>
+					<input type="password" class="input col_100 m-b5" id="password" />
+				</li>
+				<li class="passvalwrap">
+					<span class="error-message" id="lblPasswordValidation"></span>
+					<label class="d-block t-700 m-b5" for="password_confirm">Confirmar senha</label>
+					<input type="password" class="input col_100 m-b5" for="password_confirm" />
+				</li>
+				<li>
+					<input type="checkbox" value="ativo" id="active" ><label class="t-700 m-l10" for="active">Ativo</label>
+				</li>
+				<li id="errormessage" class="feedback">Erro no sistema tente mais tarde.</li>
+				<li id="invalidmessage" class="feedback">E-mail ou senha inválida</li>
+			</ul>
+		</div>
+		<div class="dialog-footer">
+			<button class="btn red" id="btnSave">Adicionar</button>
+			<button class="btn cancel">Cancelar</button>
+		</div>
+	</div>
+
+	<div id="dialogDeleteUser" class="alldialog" title="Deletar Usuário">
+		<div class="dialog-row">
+			<p>Tem certeza que você realmente quer deletar o usuário <span class="t-700">"Alessandro Ribeiro"</span>?</p>
+		</div>
+		<div class="dialog-footer">
+			<button class="btn red">Deletar</button>
+			<button class="btn cancel">Cancelar</button>
+		</div>
+	</div>
+   	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+   	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+   	<script src="js/dropit.js"></script>
+   	<script src="js/main.js"></script>
+
+   	<script type="text/javascript">
+
+   		function validateForm(){
+
+   			var IsValid = true;
+
+   			 $("#lblEmailValidation").hide();
+   			 $("li.error").removeClass("error");
+
+   			if ( $("#user").val().length == 0  ) {
+   				 IsValid = false;
+   				 $("#lblUserValidation").text("Preencha esse campo"); 
+   				 $("#lblUserValidation").show();
+   				 $("#user").closest("li").addClass("error");
+   			}
+
+   			 
+   			if ( $("#email").val().length == 0  ) {
+   				 IsValid = false;
+   				 $("#lblEmailValidation").text("Preencha esse campo"); 
+   				 $("#lblEmailValidation").show();
+   				 $("#email").closest("li").addClass("error");
+   			}else{
+   				
+   				  var pattern = new RegExp(/^[+a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i);
+    			 if ( ! pattern.test( $("#email").val()) ){
+
+    			 	IsValid = false;
+	   				$("#lblEmailValidation").text("E-mail inválido"); 
+	   				$("#lblEmailValidation").show();
+   				 	$("#email").closest("li").addClass("error");
+    			 }
+   			}
+
+   			if ( $("#password").val().length == 0  ) {
+   				 IsValid = false;
+   				 $("#lblPassword").text("Preencha esse campo"); 
+   				 $("#lblPassword").show();
+   				 $("#password").closest("li").addClass("error");
+   			}
+
+   			if ( $("#password_confirm").val().length == 0  ) {
+   				 IsValid = false;
+   				 $("#lblPasswordValidation").text("Preencha esse campo"); 
+   				 $("#lblPasswordValidation").show();
+   				 $("#password_confirm").closest("li").addClass("error");
+   			}
+
+   		}
+
+   		$( document ).ready(function() {
+	    	
+			$( "#btnSave" ).click(function() {
+			  
+				if ( ! validateForm()  ) return;
+
+			});
+
+		});
+
+
+   	</script>
+
+</body>
+</html>
