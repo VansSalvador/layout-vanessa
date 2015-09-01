@@ -1,6 +1,6 @@
 // spec.js
 var URL='http://127.0.0.1:5000/static/index.html';
-var WAIT=3500;//TODO usar implicit wait
+var WAIT=5000;//TODO usar implicit wait
 describe('Testa o login', function() {
   it('Usuário inativo', function() {
     browser.get(URL);
@@ -10,7 +10,7 @@ describe('Testa o login', function() {
     browser.wait(protractor.ExpectedConditions.textToBePresentInElement(element(by.id('loginmessage')),'Esta conta está inativa, contate o seu administrador.'),WAIT);
   });
   it('Login com admin',function(){
-    //TODO implementar banco antes
+    //TODO
   });
   it('Login com usuário normal',function(){
     browser.get(URL);

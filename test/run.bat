@@ -1,4 +1,4 @@
 python populatedb.py clear
 python populatedb.py load
-protractor conf.js
+protractor conf.test.js
 python populatedb.py clear
