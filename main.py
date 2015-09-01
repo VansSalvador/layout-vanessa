@@ -32,7 +32,7 @@ def login():
     for user in company.users:
         if user.username==username:
             if not user.active:
-                break#TODO algo além disso?
+                return '401'
             #must instantiate an AuthUser that is serializable to JSON, unlike the MongoAlchemy data object
             jsonuser=AuthUser(username=user.username,password=user.password,salt=user.salt)
             jsonuser.role=user.role

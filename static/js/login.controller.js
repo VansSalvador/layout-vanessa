@@ -6,6 +6,8 @@ app.controller('Login',['$scope','$http',function($scope,$http){
           then(function(response) {
             if(response.data=='302'){
                 window.location.href='/painel';
+            }else if (response.data=='401'){
+                $scope.error='Esta conta está inativa, contate o seu administrador.';
             }else{
                 $scope.error='E-mail ou senha inválida.';
             }

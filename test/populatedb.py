@@ -23,15 +23,13 @@ with app.app_context():
         db.clear_collection(Company)
         print('clean')
     elif arg=='load':
-        admin = User(username='admin@epicom.com.br')
+        admin = User(username='admin@epicom.com.br',role='admin',active=True)
         admin.set_and_encrypt_password('password')
-        admin.role='admin'
-        admin.active=True
-        user = User(username='user@epicom.com.br')
+        user = User(username='user@epicom.com.br',role='user',active=True)
         user.set_and_encrypt_password('password')
-        user.role='user'
-        user.active=True
-        epicom = Company(name='Epicom',token='x',users=[admin,user])
+        inactive = User(username='inativo@epicom.com.br',role='user',active=False)
+        inactive.set_and_encrypt_password('password')
+        epicom = Company(name='Epicom',token='x',users=[admin,user,inactive])
         db.insert(epicom)
         print('ok')
     else:
