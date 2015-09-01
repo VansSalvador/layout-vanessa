@@ -25,21 +25,24 @@ db = Session.connect('painel')
 
 @app.route('/login',methods=['POST'])
 def login():
-    username = request.json['user']
+    user,company = getuser(request.json['user'])
+    if user==None:
+        return '403'
+    if not user.active:
+        return '401'
+    #must instantiate an AuthUser that is serializable to JSON, unlike the MongoAlchemy data object
+    jsonuser=AuthUser(username=user.username,password=user.password,salt=user.salt)
+    jsonuser.role=user.role
+    return '302' if jsonuser.authenticate(request.json['pass']) else '403'
+
+def getuser(username):
     company=db.query(Company).filter({'users': {'$elemMatch': {'username': username}}}).first()
     if company==None:
-        return '403'
+        return None,None
     for user in company.users:
         if user.username==username:
-            if not user.active:
-                return '401'
-            #must instantiate an AuthUser that is serializable to JSON, unlike the MongoAlchemy data object
-            jsonuser=AuthUser(username=user.username,password=user.password,salt=user.salt)
-            jsonuser.role=user.role
-            if jsonuser.authenticate(request.json['pass']):
-                return '302'
-            break
-    return '403'
+            return user,company
+    raise Exception('User found on DB but not on user array')
 
 @app.route('/painel')
 @login_required()
