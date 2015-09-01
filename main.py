@@ -47,7 +47,7 @@ def getuser(username):
 @app.route('/painel')
 @login_required()
 def logon():
-    return render_template("logged.html",role=AuthUser.load_current_user().role)
+    return render_template('painel.html')
 
 @app.route('/logoff')
 def logoff():
