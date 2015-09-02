@@ -1,9 +1,8 @@
-from flask import Flask,request,url_for,render_template
+from flask import Flask,request,render_template
 from flaskext.auth import Auth,AuthUser,login_required,logout
 from src.model import User,Company
 from mongoalchemy.session import Session
-from bson import json_util
-import flask,time,hashlib,pymongo,json
+import flask,time,hashlib,json
 
 app = Flask(__name__)
 
@@ -56,14 +55,16 @@ def logoff():
 
 @login_required()
 def listusers():
-    #TODO only admin
-    user,company = getuser(AuthUser.load_current_user().username)
-    return json.dumps(company.users,default=json_util.default)
+    current=AuthUser.load_current_user()
+    if current.role!='admin':
+        raise Exception('Only administrators can see the user list.')
+    q=db.query(Company)
+    q.raw_output()
+    return json.dumps(q.filter({'users': {'$elemMatch': {'username': current.username}}}).first()['users'])
 
 app.add_url_rule('/painel','logon',logon)
 app.add_url_rule('/logoff','logoff',logoff)
 app.add_url_rule('/api/listusers','listusers',listusers)
 
 if __name__ == '__main__':
-    app.SERVER_NAME='myapp.dev:5000'
     app.run(debug=True)
