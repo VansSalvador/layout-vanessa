@@ -1,7 +1,15 @@
 // spec.js
-var URL='http://127.0.0.1:5000/static/index.html';
+//TODO testar logout em todos os usuários?
+//TODO testar acesso inautorizado
+var BASEURL='http://127.0.0.1:5000/';
+var URL=BASEURL+'static/index.html';
 var WAIT=5000;//TODO usar implicit wait
 describe('Testa o login', function() {
+  it('Acesso não-autorizado', function() {
+     browser.driver.get(BASEURL+'painel');
+     expect(browser.driver.getTitle()).toEqual('401 Unauthorized');
+  });
+  return;
   it('Usuário inativo', function() {
     browser.get(URL);
     element(by.id('txtEmail')).sendKeys('inativo@epicom.com.br');
