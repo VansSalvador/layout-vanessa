@@ -9,7 +9,6 @@ describe('Testa o login', function() {
      browser.driver.get(BASEURL+'painel');
      expect(browser.driver.getTitle()).toEqual('401 Unauthorized');
   });
-  return;
   it('Usuário inativo', function() {
     browser.get(URL);
     element(by.id('txtEmail')).sendKeys('inativo@epicom.com.br');
