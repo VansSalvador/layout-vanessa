@@ -2,7 +2,8 @@ from flask import Flask,request,url_for,render_template
 from flaskext.auth import Auth,AuthUser,login_required,logout
 from src.model import User,Company
 from mongoalchemy.session import Session
-import flask,time,hashlib
+from bson import json_util
+import flask,time,hashlib,pymongo,json
 
 app = Flask(__name__)
 
@@ -44,15 +45,24 @@ def getuser(username):
             return user,company
     raise Exception('User found on DB but not on user array')
 
-@app.route('/painel')
 @login_required()
 def logon():
     return render_template('painel.html')
 
-@app.route('/logoff')
+@login_required()
 def logoff():
     logout()
     return 'ok'
+
+@login_required()
+def listusers():
+    #TODO only admin
+    user,company = getuser(AuthUser.load_current_user().username)
+    return json.dumps(company.users,default=json_util.default)
+
+app.add_url_rule('/painel','logon',logon)
+app.add_url_rule('/logoff','logoff',logoff)
+app.add_url_rule('/api/listusers','listusers',listusers)
 
 if __name__ == '__main__':
     app.SERVER_NAME='myapp.dev:5000'
