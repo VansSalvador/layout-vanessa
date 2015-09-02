@@ -52,13 +52,16 @@ def logon():
 @login_required()
 def logoff():
     logout()
-    return 'ok'
+    return flask.redirect('/static/index.html') #TODO change url
 
 @login_required()
 def listusers():
-    #TODO only admin
-    user,company = getuser(AuthUser.load_current_user().username)
-    return json.dumps(company.users,default=json_util.default)
+    current=AuthUser.load_current_user()
+    if current.role!='admin':
+        flask.abort(403)
+    q=db.query(Company)
+    q.raw_output()
+    return json.dumps(q.filter({'users': {'$elemMatch': {'username': current.username}}}).first()['users'])
 
 app.add_url_rule('/painel','logon',logon)
 app.add_url_rule('/logoff','logoff',logoff)
