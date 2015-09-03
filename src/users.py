@@ -26,8 +26,9 @@ def getuser(username):
     raise Exception('User found on DB but not on user array')
 
 @login_required()
-def listusers():
-    current=AuthUser.load_current_user()
+def listusers(current=None):
+    if current==None:
+        current=AuthUser.load_current_user()
     if current.role!='admin':
         flask.abort(403)
     q=db.query(Company)
