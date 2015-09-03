@@ -1,13 +1,8 @@
-from flask import Flask,request,url_for,render_template
-from flaskext.auth import Auth,AuthUser,login_required,logout
-from src.model import User,Company
-from mongoalchemy.session import Session
-from bson import json_util
-import flask,time,hashlib,pymongo,json
+from src import server,login,users
+import flask,json,hashlib
 
-app = Flask(__name__)
-
-jinja_options = app.jinja_options.copy()
+server.app=flask.Flask(__name__)
+jinja_options = server.app.jinja_options.copy()
 jinja_options.update(dict(
     block_start_string='[%',
     block_end_string='%]',
@@ -16,57 +11,16 @@ jinja_options.update(dict(
     comment_start_string='[#',
     comment_end_string='#]',
 ))
-app.jinja_options = jinja_options
-app.secret_key='^mu0n!22#yqy=8a5x1hg5%1!2#dedsn=&cd&$ur3pzqiw+#$yd'
 
-auth=Auth(app)
-app.auth.hash_algorithm = lambda to_encrypt: hashlib.sha1(to_encrypt.encode('utf-8'))#prevents encoding error
+server.app.jinja_options = jinja_options
+server.app.secret_key='^mu0n!22#yqy=8a5x1hg5%1!2#dedsn=&cd&$ur3pzqiw+#$yd'
+login.auth=login.Auth(server.app)
+server.app.auth.hash_algorithm = lambda to_encrypt: hashlib.sha1(to_encrypt.encode('utf-8'))#prevents encoding error
 
-db = Session.connect('painel')
-
-@app.route('/login',methods=['POST'])
-def login():
-    user,company = getuser(request.json['user'])
-    if user==None:
-        return '403'
-    if not user.active:
-        return '401'
-    #must instantiate an AuthUser that is serializable to JSON, unlike the MongoAlchemy data object
-    jsonuser=AuthUser(username=user.username,password=user.password,salt=user.salt)
-    jsonuser.role=user.role
-    return '302' if jsonuser.authenticate(request.json['pass']) else '403'
-
-def getuser(username):
-    company=db.query(Company).filter({'users': {'$elemMatch': {'username': username}}}).first()
-    if company==None:
-        return None,None
-    for user in company.users:
-        if user.username==username:
-            return user,company
-    raise Exception('User found on DB but not on user array')
-
-@login_required()
-def logon():
-    return render_template('painel.html')
-
-@login_required()
-def logoff():
-    logout()
-    return flask.redirect('/static/index.html') #TODO change url
-
-@login_required()
-def listusers():
-    current=AuthUser.load_current_user()
-    if current.role!='admin':
-        flask.abort(403)
-    q=db.query(Company)
-    q.raw_output()
-    return json.dumps(q.filter({'users': {'$elemMatch': {'username': current.username}}}).first()['users'])
-
-app.add_url_rule('/painel','logon',logon)
-app.add_url_rule('/logoff','logoff',logoff)
-app.add_url_rule('/api/listusers','listusers',listusers)
+server.app.add_url_rule('/login','login',login.login,methods=['POST'])
+server.app.add_url_rule('/painel','logon',login.logon)
+server.app.add_url_rule('/logoff','logoff',login.logoff)
+server.app.add_url_rule('/api/listusers','listusers',users.listusers)
 
 if __name__ == '__main__':
-    app.SERVER_NAME='myapp.dev:5000'
-    app.run(debug=True)
+    server.app.run(debug=True)

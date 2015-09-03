@@ -1,9 +1,8 @@
 import sys,hashlib
-sys.path.insert(0,'../src') #TODO is there a better way to do this? Should assume it's in the Python path?
-from model import User,Company
 from mongoalchemy.session import Session
 from flask import Flask
 from flaskext.auth import Auth
+from src.users import Company,User
 
 db = Session.connect('painel')
 app = Flask(__name__)
