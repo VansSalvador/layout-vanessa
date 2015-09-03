@@ -21,6 +21,7 @@ server.app.add_url_rule('/painel','logon',login.logon)
 server.app.add_url_rule('/logoff','logoff',login.logoff)
 server.app.add_url_rule('/api/listusers','listusers',users.listusers)
 server.app.add_url_rule('/api/deleteuser','deleteuser',users.deleteuser,methods=['POST'])
+server.app.add_url_rule('/api/adduser','adduser',users.adduser,methods=['POST'])
 
 if __name__ == '__main__':
     server.app.run(debug=True)

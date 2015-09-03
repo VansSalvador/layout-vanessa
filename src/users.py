@@ -18,7 +18,12 @@ class Company(Document):
     token = StringField()
     name = StringField()
 
-def getuser(username):
+def getuser(username=None):
+    if username==None:
+        username=AuthUser.load_current_user()
+        if username==None:
+            flask.abort(403)
+        username=username.username
     company=db.query(Company).filter({'users': {'$elemMatch': {'username': username}}}).first()
     if company==None:
         return None,None
@@ -46,5 +51,28 @@ def deleteuser():
     checkprivilege()
     user,company=getuser(flask.request.json['user'])
     company.users.remove(user)
+    db.save(company)
+    return 'ok'
+
+@login_required()
+def adduser():
+    #TODO ter field currentuser para caso de alterar o email
+    checkprivilege()
+    user,company=None,None
+    current=flask.request.json['current']#user being updated
+    if current:
+        user,company=getuser(current)
+    myuser,mycompany=getuser()
+    if company==None:
+        user=myuser
+        company=mycompany
+    else:
+        if company.name!=mycompany.name:
+            #trying to inser a user whose email clashes with one from another company
+            flask.abort(1838)#TODO
+        company.users.remove(user)
+    newuser = User(username=flask.request.json['mail'],role=flask.request.json['role'],active=flask.request.json['active']=='active',fullname=flask.request.json['name'])
+    newuser.set_and_encrypt_password(flask.request.json['pass'])
+    company.users.append(newuser)
     db.save(company)
     return 'ok'

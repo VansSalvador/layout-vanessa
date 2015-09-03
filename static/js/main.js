@@ -15,9 +15,9 @@ $(function() {
   $( "#geraRelatorio" ).click(function() {
      $( "#dialogRelatorio" ).dialog( "open" );
   });
-  $( ".editUser" ).click(function() {
+  /*$( ".editUser" ).click(function() {
      $( "#dialogUser" ).dialog( "open" );
-  });
+  });*/
   $( ".deleteUser" ).click(function() {
      $( "#dialogDeleteUser" ).dialog( "open" );
   });
