@@ -11,6 +11,7 @@
 	<link rel="stylesheet" href="css/jqueryui.css">
    	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>
+    <script src="https://code.angularjs.org/1.4.4/i18n/angular-locale_pt-br.js"></script>
 	<script src="js/users.controller.js"></script>
    	<script src="js/dropit.js"></script>
    	<script src="js/main.js"></script>
@@ -95,7 +96,7 @@
 							</thead>
 							<tbody ng-controller="userlisting">
 								<tr ng-repeat="user in users">
-									<td>{{user.username}}</td>
+									<td>{{user.fullname}}</td>
 									<td>{{user.username}}</td>
 									<td>
 										<span class="tool"
@@ -103,8 +104,10 @@
 											{{user.role=='admin'?'Administrador':'Usuário'}}
 										</span>
 									</td>
-									<td>30 jun, 2015</td>
-									<td><button class="ico icon-edit editUser" id="" ng-click="opendialog();"></button> <button class="ico icon-delete deleteUser" id=""></button></td>
+									<td>{{user.creation*1000 | date:'dd MMM, yyyy'}}</td>
+									<td>
+                                        <button class="ico icon-edit editUser" ng-click="opendialog(user);"></button>
+                                        <button class="ico icon-delete deleteUser" ng-click="confirmdelete(user);"></button></td>
 								</tr>
 							</tbody>
 						</table>
@@ -173,12 +176,12 @@
 		</div>
 	</div>
 
-	<div id="dialogDeleteUser" class="alldialog" title="Deletar Usuário">
+	<div id="dialogDeleteUser" class="alldialog" title="Deletar Usuário" ng-controller="confirmdeletion">
 		<div class="dialog-row">
 			<p>Tem certeza que você realmente quer deletar o usuário <span class="t-700">"Alessandro Ribeiro"</span>?</p>
 		</div>
 		<div class="dialog-footer">
-			<button class="btn red">Deletar</button>
+			<button class="btn red" ng-click="deleteuser();">Deletar</button>
 			<button class="btn cancel">Cancelar</button>
 		</div>
 	</div>
