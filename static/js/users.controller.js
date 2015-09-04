@@ -3,7 +3,8 @@ var deletion=false;
 var refresh=false;
 var editing=false;
 var formscope=false;
-var opendialog=function(user){
+
+function opendialog(user){
     editing=user;
     formscope.pass1='';
     formscope.pass2='';
@@ -20,6 +21,7 @@ var opendialog=function(user){
     }
     $( "#dialogUser" ).dialog( "open" );
 };
+
 app.controller('userlisting',['$scope','$http',function($scope,$http){
     refresh=function(){
         $http.get('/api/listusers').then(function(users){//TODO animated loading feedback
@@ -32,11 +34,9 @@ app.controller('userlisting',['$scope','$http',function($scope,$http){
     $scope.opendialog=opendialog;
     $scope.confirmdelete=function(user){
         deletion=user;
+        document.querySelector('#deletename').innerHTML='"'+user.fullname+'"';
         $( "#dialogDeleteUser" ).dialog( "open" );
     };
-}]);
-app.controller('adduserctl',['$scope','$http',function($scope,$http){
-   $scope.opendialog=opendialog;
 }]);
 app.controller('confirmdeletion',['$scope','$http',function($scope,$http){
     $scope.deleteuser=function(){
@@ -47,6 +47,9 @@ app.controller('confirmdeletion',['$scope','$http',function($scope,$http){
             alert(error.data);//TODO
         });
     };
+    $scope.closedelete=function(){
+        $( "#dialogDeleteUser" ).dialog( "close" );
+    }
 }]);
 app.controller('adduser',['$scope','$http',function($scope,$http){
     formscope=$scope;
@@ -65,4 +68,7 @@ app.controller('adduser',['$scope','$http',function($scope,$http){
             alert(error.data);//TODO
         });
     };
+    $scope.closeuserform=function(){
+        $( "#dialogUser " ).dialog( "close" );
+    }
 }]);
