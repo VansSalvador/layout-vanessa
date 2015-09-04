@@ -54,25 +54,29 @@ def deleteuser():
     db.save(company)
     return 'ok'
 
+'''
+User é um documento interno de Company.
+Essa função comtempla tanto a criação quando atualização de um usuário.
+Considera-se atualização quando o e-mail já existe e é da mesma empresa.
+'''
 @login_required()
 def adduser():
-    #TODO ter field currentuser para caso de alterar o email
     checkprivilege()
-    user,company=None,None
-    current=flask.request.json['current']#user being updated
-    if current:
-        user,company=getuser(current)
+    current=flask.request.json['current']
     myuser,mycompany=getuser()
-    if company==None:
-        user=myuser
-        company=mycompany
-    else:
+    user,company=None,None
+    if current:#user being updated
+        user,company=getuser(current)
         if company.name!=mycompany.name:
             #trying to inser a user whose email clashes with one from another company
-            flask.abort(1838)#TODO
+            flask.abort(1838)
         company.users.remove(user)
+    else:#user being created
+        user,company=myuser,mycompany
     newuser = User(username=flask.request.json['mail'],role=flask.request.json['role'],active=flask.request.json['active']=='active',fullname=flask.request.json['name'])
     newuser.set_and_encrypt_password(flask.request.json['pass'])
+    if current:
+        newuser.creation=user.creation
     company.users.append(newuser)
     db.save(company)
     return 'ok'

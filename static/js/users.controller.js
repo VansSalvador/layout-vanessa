@@ -2,22 +2,23 @@ var app=angular.module('users', []); //can't use the ng-resource because User is
 var deletion=false;
 var refresh=false;
 var editing=false;
+var formscope=false;
 var opendialog=function(user){
     editing=user;
-    $( "#dialogUser" ).dialog( "open" );
-    document.querySelector('#dialogUser #password').value='';
-    document.querySelector('#dialogUser #password_confirm').value='';
+    formscope.pass1='';
+    formscope.pass2='';
     if(editing){
         document.querySelector('#dialogUser #active').checked=user.active;
-        document.querySelector('#dialogUser #user').value=user.fullname;
-        document.querySelector('#dialogUser #email').value=user.username;
-        document.querySelector('#dialogUser #profile').value=user.role;
+        formscope.name=user.fullname;
+        formscope.mail=user.username;
+        formscope.role=user.role;
     }else{
         document.querySelector('#dialogUser #active').checked=true;
-        document.querySelector('#dialogUser #user').value='';
-        document.querySelector('#dialogUser #email').value='';
-        document.querySelector('#dialogUser #profile').value='';//TODO
+        formscope.name='';
+        formscope.mail='';
+        formscope.role='';
     }
+    $( "#dialogUser" ).dialog( "open" );
 };
 app.controller('userlisting',['$scope','$http',function($scope,$http){
     refresh=function(){
@@ -33,7 +34,6 @@ app.controller('userlisting',['$scope','$http',function($scope,$http){
         deletion=user;
         $( "#dialogDeleteUser" ).dialog( "open" );
     };
-    //TODO cancel dialogs
 }]);
 app.controller('adduserctl',['$scope','$http',function($scope,$http){
    $scope.opendialog=opendialog;
@@ -41,7 +41,7 @@ app.controller('adduserctl',['$scope','$http',function($scope,$http){
 app.controller('confirmdeletion',['$scope','$http',function($scope,$http){
     $scope.deleteuser=function(){
         $( "#dialogDeleteUser" ).dialog( "close" );
-         $http.post('/api/deleteuser',{user:deletion.username}).then(function(ok){//TODO animated loading feedback
+            $http.post('/api/deleteuser',{user:deletion.username}).then(function(ok){
             refresh();
         },function(error){
             alert(error.data);//TODO
@@ -49,6 +49,7 @@ app.controller('confirmdeletion',['$scope','$http',function($scope,$http){
     };
 }]);
 app.controller('adduser',['$scope','$http',function($scope,$http){
+    formscope=$scope;
     $scope.add=function(){
         $http.post('/api/adduser',{
             name:$scope.name,
