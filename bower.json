@@ -1,0 +1,25 @@
+{
+  "name": "painel-parceiros",
+  "version": "0.0.0",
+  "authors": [
+    "Adriano M. Machado <adriano@epicom.com.br>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "static/vendor",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.4.5",
+    "angular-animate": "^1.4.4",
+    "angular-resource": "^1.4.5",
+    "angular-route": "~1.4.5",
+    "angular-ui-router": "^0.2.0",
+    "gilbitron/Dropit": "https://github.com/gilbitron/Dropit.git#~1.1.1",
+    "jquery": "~2.1.4"
+  }
+}

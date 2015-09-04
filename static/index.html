@@ -1,44 +1,68 @@
 <!doctype html>
-<html lang="en" ng-app="painel">
-	<head>
-		<meta charset="UTF-8">
-		<title>EPICOM</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-		<link href='http://fonts.googleapis.com/css?family=Lato:400,300,300italic,700,700italic,900,900italic,400italic,100italic,100' rel='stylesheet' type='text/css'>
-		<link rel="stylesheet" href="css/main.css">
-		<link rel="stylesheet" href="css/login.css">
-		<link rel="stylesheet" href="css/jqueryui.css">
-		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>
-		<script src="js/login.controller.js"></script>
-	</head>
-	<body class="login">
-		<form name="login" class="box-login" ng-controller="Login as login" novalidate>
-			<h1>EPICOM</h1>
-			<ul>
-				<li class="emailwrap" ng-class="{'error':login.user.$dirty && (login.user.$error.required||login.user.$error.email)}">
-					<span class="error-message" id="lblEmailValidation" ng-show="login.user.$error.required && login.user.$dirty">
+<html lang="en" data-ng-app="appEpicom">
+<head>
+    <meta charset="UTF-8">
+    <title>EPICOM</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link href='http://fonts.googleapis.com/css?family=Lato:400,300,300italic,700,700italic,900,900italic,400italic,100italic,100'
+          rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/jqueryui.css">
+    <!-- bower:css -->
+    <!-- endbower -->
+    <!-- build:js static/javascripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="vendor/jquery/dist/jquery.js"></script>
+    <script src="vendor/angular/angular.js"></script>
+    <script src="vendor/angular-animate/angular-animate.js"></script>
+    <script src="vendor/angular-resource/angular-resource.js"></script>
+    <script src="vendor/angular-route/angular-route.js"></script>
+    <script src="vendor/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="vendor/gilbitron/Dropit/dropit.js"></script>
+    <!-- endbower -->
+    <script src="app/common/jquery.plugin.js"></script>
+    <script src="app/common/jquery.datepick.js"></script>
+    <!-- endbuild -->
+</head>
+<body>
+    <div class="login">
+    <div data-ng-controller="LoginController as vm">
+    <form name="loginFrm" class="box-login" novalidate data-ng-submit="vm.authenticate()">
+        <h1>EPICOM</h1>
+        <ul>
+            <li class="emailwrap" data-ng-class="{'error': loginFrm.username.$dirty && (loginFrm.username.$error.required || loginFrm.username.$error.email)}">
+                    <span class="error-message" data-ng-show="loginFrm.username.$error.required && loginFrm.username.$dirty">
                         Preencha esse campo
                     </span>
-					<span class="error-message" ng-show="login.user.$error.email && login.user.$dirty">
+                    <span class="error-message" data-ng-show="loginFrm.username.$error.email && loginFrm.username.$dirty">
                         E-mail inválido
                     </span>
-					<label class="d-block m-b5">E-mail</label>
-					<input type="email" class="input col_100" id="txtEmail" ng-model="user" required name="user"/>
-				</li>
-				<li class="passwrap" ng-class="{'error':login.password.$error.required && login.password.$dirty}">
-					<span class="error-message" id="lblPasswordValidation">Digite a senha</span>
-					<label class="d-block m-b5">Senha</label>
-					<input type="password" class="input col_100"  id="txtPassword"  ng-model="password" required name="password"/>
-				</li>
-				<li id="loginmessage" class="feedback">{{error}}</li>
-				<li>
-					<input class="btn red col_100 t-center t-up" id="btnEntrar" value="Entrar" ng-click="dologin(user,password)"
-                           ng-disabled="login.user.$error.email || login.user.$error.required || login.password.$error.required" />
-				</li>
-				<li class="t-center">
-					<a href="mailto:suporte@epicom.com.br">Não consegue acessar sua conta?</a>
-				</li>
-			</ul>
-		</form>
-	</body>
+                <label class="d-block m-b5" for="username">E-mail</label>
+                <input type="email" class="input col_100" data-ng-model="vm.username" required placeholder="Email" name="username" />
+            </li>
+            <li class="passwrap" data-ng-class="{'error':loginFrm.password.$error.required && loginFrm.password.$dirty}">
+                <span class="error-message">Digite a senha</span>
+                <label class="d-block m-b5" for="senha">Senha</label>
+                <input type="password" class="input col_100" data-ng-model="vm.password" required placeholder="Senha" name="senha" />
+            </li>
+            <li id="loginmessage" class="feedback">{{error}}</li>
+            <li>
+                <input type="submit" class="btn red col_100 t-center t-up" value="Entrar"
+                       data-ng-disabled="loginFrm.username.$error.email || loginFrm.username.$error.required || loginFrm.password.$error.required"/>
+            </li>
+            <li class="t-center">
+                <a href="mailto:suporte@epicom.com.br">Não consegue acessar sua conta?</a>
+            </li>
+        </ul>
+    </form>
+    </div>
+    </div>
+    <!-- build:js static/javascripts/appEpicom.js -->
+    <script src="app/app.js"></script>
+    <script src="app/common/main.js"></script>
+    <script src="app/topNavBar/topNavBar.controller.js"></script>
+    <script src="app/common/page.controller.js"></script>
+    <script src="app/login/login.controller.js"></script>
+    <!-- endbuild -->
+</body>
 </html>
