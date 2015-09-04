@@ -27,7 +27,7 @@ app.controller('userlisting',['$scope','$http',function($scope,$http){
         $http.get('/api/listusers').then(function(users){//TODO animated loading feedback
             $scope.users=users.data;
         },function(error){
-            alert(error.data);//TODO
+            alert("Erro no sistema tente mais tarde.");//TODO pode ser token expirado
         });
     };
     refresh();
@@ -44,7 +44,7 @@ app.controller('confirmdeletion',['$scope','$http',function($scope,$http){
             $http.post('/api/deleteuser',{user:deletion.username}).then(function(ok){
             refresh();
         },function(error){
-            alert(error.data);//TODO
+            alert("Erro no sistema tente mais tarde.");//TODO pode ser token expirado
         });
     };
     $scope.closedelete=function(){
@@ -54,6 +54,7 @@ app.controller('confirmdeletion',['$scope','$http',function($scope,$http){
 app.controller('adduser',['$scope','$http',function($scope,$http){
     formscope=$scope;
     $scope.add=function(){
+        $scope.servererror=false;
         $http.post('/api/adduser',{
             name:$scope.name,
             mail:$scope.mail,
@@ -61,11 +62,11 @@ app.controller('adduser',['$scope','$http',function($scope,$http){
             pass:$scope.pass1,
             active:document.querySelector('#dialogUser #active').checked?'active':'inactive',
             current:editing?editing.username:false,
-        }).then(function(users){//TODO animated loading feedback
+        }).then(function(users){
             $( "#dialogUser" ).dialog( "close" );
             refresh();
         },function(error){
-            alert(error.data);//TODO
+            $scope.servererror=true;
         });
     };
     $scope.closeuserform=function(){

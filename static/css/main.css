@@ -157,6 +157,7 @@ li.error {position:relative;}
 .alldialog .error-message:before {right:4px;}
 .error .input {background:url('../img/sprite.png') no-repeat right -2852px;border:1px solid #999;}
 .feedback {text-align: center;color:#e73c50;display: none;}
+.visiblefeedback {text-align: center;color:#e73c50;margin-top:1em;}
 
 /*ICONS*/
 .ico {display:inline-block;margin-right:20px;}
