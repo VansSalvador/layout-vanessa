@@ -40,6 +40,24 @@ module.exports = function (grunt) {
       target: {     
         src: [ 'static/index.html' ]
       }
+    },
+    ngAnnotate: {
+      options: {
+          singleQuotes: true,
+          add: true,
+          remove: true
+      },
+      appEpicom: {
+        files: [
+          {
+            expand: true,
+            cwd: 'static/app',
+            src: '*.js', 
+            ext: '.js',
+            extDot: 'last',
+          },
+        ],
+      }
     },/*
     connect: {
       serve: {
@@ -72,7 +90,7 @@ module.exports = function (grunt) {
         tasks: ['less']
       },
       sources: {
-        files: ['static/js/**/*.js', 'static/js/*.js'],
+        files: ['static/app/**/*.js', 'static/app/*.js'],
         tasks: ['ngAnnotate', 'concat_sourcemap:app']
       },
       images: {
