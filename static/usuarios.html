@@ -1,15 +1,20 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" ng-app="users">
 <head>
 	<meta charset="UTF-8">
 	<title>EPICOM</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 	<link href='http://fonts.googleapis.com/css?family=Lato:400,300,300italic,700,700italic,900,900italic,400italic,100italic,100' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="css/main.css">
-	<link rel="stylesheet" href="css/jqueryui.css">
 	<link rel="stylesheet" href="css/users.css">
+   	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<link rel="stylesheet" href="css/jqueryui.css">
+   	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>
+    <script src="https://code.angularjs.org/1.4.4/i18n/angular-locale_pt-br.js"></script>
 	<script src="js/users.controller.js"></script>
+   	<script src="js/dropit.js"></script>
+   	<script src="js/main.js"></script>
 </head>
 <body>
 	<div class="nav-user">
@@ -48,7 +53,7 @@
 				</li>
 			</ul>
 		</div>
-		<div class="wrap-content">
+		<div class="wrap-content" ng-controller="userlisting">
 			<div class="row">
 				<div class="f-left col_50">
 					<h2 class="f-left">Usuários</h2>
@@ -68,10 +73,10 @@
 			</div>
 			<div class="row">
 				<div class="f-left">
-					<button class="btn red m-r20 editUser" id="">Adicionar usuário</button>
+					<button class="btn red m-r20 editUser" id="" ng-click="opendialog(false);">Adicionar usuário</button>
 				</div>
 				<div class="f-right col_70 t-right">
-					<span class="m-r20">Mostrando 15 de 10.163 registrados</span>
+					<span class="m-r20">Mostrando {{users.length}} de {{users.length}} registrados</span>
 					<input class="input search" placeholder="Buscar">
 				</div>
 			</div>
@@ -89,18 +94,20 @@
 									<th>Ações</th>
 								</tr>
 							</thead>
-							<tbody>
-								<tr>
-									<td>Bruce Wayne</td>
-									<td>bruce@waynetech.com</td>
+							<tbody >
+								<tr ng-repeat="user in users">
+									<td>{{user.fullname}}</td>
+									<td>{{user.username}}</td>
 									<td>
 										<span class="tool"
 									  	title="Usuário Administrador pode gerenciar Usuários, Editar, Colaborar, Ler e Analisar">
-											Administrador
+											{{user.role=='admin'?'Administrador':'Usuário'}}
 										</span>
 									</td>
-									<td>30 jun, 2015</td>
-									<td><button class="ico icon-edit editUser" id=""></button> <button class="ico icon-delete deleteUser" id=""></button></td>
+									<td>{{user.creation*1000 | date:'dd MMM, yyyy'}}</td>
+									<td>
+                                        <button class="ico icon-edit editUser" ng-click="opendialog(user);"></button>
+                                        <button class="ico icon-delete deleteUser" ng-click="confirmdelete(user);"></button></td>
 								</tr>
 							</tbody>
 						</table>
@@ -125,64 +132,83 @@
 			</div>
 		</div>
 	</div>
-	<div id="dialogUser" class="alldialog" title="Editar Usuário">
-		<div class="dialog-row">
-			<ul>
-				<li>
-					<label class="d-block t-700 m-b5" for="id">ID</label>
-					<input type="text" class="input col_100 m-b5" id="id" />
-				</li>
-				<li>
-					<span class="error-message" id="lblUserValidation"></span>
-					<label class="d-block t-700 m-b5" for="user">Usuário</label>
-					<input type="text" class="input col_100 m-b5" id="user" />
-				</li>
-				<li class="emailwrap">
-					<span class="error-message" id="lblEmailValidation"></span>
-					<label class="d-block t-700 m-b5" for="email">E-mail</label>
-					<input type="text" class="input col_100 m-b5" id="email" />
-				</li>
-				<li>
-					<label class="d-block t-700 m-b5" for="profile">Selecione o perfil</label>
-					<select class="input col_100 m-b5" id="profile"><option>Opção 01</option></select>
-				</li>
-				<li class="passwrap">
-					<span class="error-message" id="lblPassword"></span>
-					<label class="d-block t-700 m-b5" for="password">Senha</label>
-					<input type="password" class="input col_100 m-b5" id="password" />
-				</li>
-				<li class="passvalwrap">
-					<span class="error-message" id="lblPasswordValidation"></span>
-					<label class="d-block t-700 m-b5" for="password_confirm">Confirmar senha</label>
-					<input type="password" class="input col_100 m-b5" for="password_confirm" />
-				</li>
-				<li>
-					<input type="checkbox" value="ativo" id="active" ><label class="t-700 m-l10" for="active">Ativo</label>
-				</li>
-				<li id="errormessage" class="feedback">Erro no sistema tente mais tarde.</li>
-				<li id="invalidmessage" class="feedback">E-mail ou senha inválida</li>
-			</ul>
-		</div>
-		<div class="dialog-footer">
-			<button class="btn red" id="btnSave">Adicionar</button>
-			<button class="btn cancel">Cancelar</button>
-		</div>
+	<div id="dialogUser" class="alldialog" title="Editar Usuário" >
+        <form name="addform" ng-controller="adduser as addform" novalidate>
+            <div class="dialog-row">
+                <ul>
+                    <li ng-class="{error:addform.name.$dirty&&addform.name.$error.required,}">
+                        <span class="error-message" ng-show="addform.name.$dirty&&addform.name.$error.required">
+                            Preencha esse campo
+                        </span>
+                        <label class="d-block t-700 m-b5" for="user">Usuário</label>
+                        <input type="text" class="input col_100 m-b5" id="user" ng-model="name" name="name" required/>
+                    </li>
+                    <li class="emailwrap"
+                        ng-class="{error:addform.mail.$dirty&&(addform.mail.$error.required||addform.mail.$error.email),}">
+                        <span class="error-message" id="lblEmailValidation"
+                          ng-show="addform.mail.$dirty&&addform.mail.$error.required">
+                            Preencha esse campo
+                        </span>
+                        <span class="error-message"
+                            ng-show="addform.mail.$dirty&&addform.mail.$error.email">
+                            E-mail inválido
+                        </span>
+                        <label class="d-block t-700 m-b5" for="email">E-mail</label>
+                        <input type="email" class="input col_100 m-b5" id="email"  ng-model="mail" name="mail" required/>
+                    </li>
+                    <li ng-class="{error:addform.role.$dirty&&!role,}">
+                        <span class="error-message" ng-show="addform.role.$dirty&&!role">
+                            Selecione um perfil
+                        </span>
+                        <label class="d-block t-700 m-b5" for="profile">Selecione o perfil</label>
+                        <select class="input col_100 m-b5" id="profile"  ng-model="role" name="role" required>
+                            <option value=""></option>
+                            <option value="user">Usuário</option>
+                            <option value="admin">Administrador</option>
+                        </select>
+                    </li>
+                    <li class="passwrap"
+                        ng-class="{error:addform.pass1.$dirty&&addform.pass1.$error.required,}">
+                        <span class="error-message" id="lblPassword" ng-show="addform.pass1.$dirty&&addform.pass1.$error.required">
+                            Preencha esse campo
+                        </span>
+                        <label class="d-block t-700 m-b5" for="password">Senha</label>
+                        <input type="password" class="input col_100 m-b5" id="password"  ng-model="pass1" name="pass1" required/>
+                    </li>
+                    <li class="passvalwrap"
+                        ng-class="{error:addform.pass2.$dirty&&addform.pass2.$error.required||pass1&&pass2&&pass1!=pass2,}">
+                        <span class="error-message" id="lblPasswordValidation" ng-show="addform.pass2.$dirty&&addform.pass2.$error.required">
+                            Preencha esse campo
+                        </span>
+                        <span class="error-message" ng-show="pass1&&pass2&&pass1!=pass2">
+                            Senha não confere
+                        </span>
+                        <label class="d-block t-700 m-b5" for="password_confirm">Confirmar senha</label>
+                        <input type="password" class="input col_100 m-b5" id="password_confirm"  ng-model="pass2" name="pass2" required/>
+                    </li>
+                    <li>
+                        <input type="checkbox" value="ativo" id="active"><label class="t-700 m-l10" for="active">Ativo</label>
+                    </li>
+                    <li id="errormessage" class="visiblefeedback" ng-show="servererror">Erro no sistema tente mais tarde.</li>
+                </ul>
+            </div>
+            <div class="dialog-footer">
+                <input type="submit" class="btn red" id="btnSave" ng-click="add();"
+                ng-disabled="addform.name.$error.required||addform.mail.$error.email||addform.role.$error.required||addform.pass1.$error.required||addform.pass2.$error.required||pass1!=pass2" value="Adicionar"/>
+                <button class="btn cancel" ng-click="closeuserform();">Cancelar</button>
+            </div>
+        </form>
 	</div>
 
-	<div id="dialogDeleteUser" class="alldialog" title="Deletar Usuário">
+	<div id="dialogDeleteUser" class="alldialog" title="Deletar Usuário" ng-controller="confirmdeletion">
 		<div class="dialog-row">
-			<p>Tem certeza que você realmente quer deletar o usuário <span class="t-700">"Alessandro Ribeiro"</span>?</p>
+			<p>Tem certeza que você realmente quer deletar o usuário <span class="t-700" id="deletename"></span>?</p>
 		</div>
 		<div class="dialog-footer">
-			<button class="btn red">Deletar</button>
-			<button class="btn cancel">Cancelar</button>
+			<button class="btn red" ng-click="deleteuser();">Deletar</button>
+			<button class="btn cancel" ng-click="closedelete();">Cancelar</button>
 		</div>
 	</div>
-   	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-   	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
-   	<script src="js/dropit.js"></script>
-   	<script src="js/main.js"></script>
-
    	<script type="text/javascript">
 
    		function validateForm(){

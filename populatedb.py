@@ -6,12 +6,8 @@ from src.users import Company,User
 
 db = Session.connect('painel')
 app = Flask(__name__)
-
 auth=Auth(app)
 app.auth.hash_algorithm = lambda to_encrypt: hashlib.sha1(to_encrypt.encode('utf-8'))#prevents encoding error
-
-#if __name__ == '__main__':
-#    app.run(debug=True)
 
 if len(sys.argv)<2:
     raise Exception('Usage: '+sys.argv[0]+' [load] [clean]')
@@ -22,11 +18,11 @@ with app.app_context():
         db.clear_collection(Company)
         print('clean')
     elif arg=='load':
-        admin = User(username='admin@epicom.com.br',role='admin',active=True)
+        admin = User(username='admin@epicom.com.br',role='admin',active=True,fullname='Administrador')
         admin.set_and_encrypt_password('password')
-        user = User(username='user@epicom.com.br',role='user',active=True)
+        user = User(username='user@epicom.com.br',role='user',active=True,fullname='Usuário')
         user.set_and_encrypt_password('password')
-        inactive = User(username='inativo@epicom.com.br',role='user',active=False)
+        inactive = User(username='inativo@epicom.com.br',role='user',active=False,fullname='Inativo')
         inactive.set_and_encrypt_password('password')
         epicom = Company(name='Epicom',token='x',users=[admin,user,inactive])
         db.insert(epicom)
