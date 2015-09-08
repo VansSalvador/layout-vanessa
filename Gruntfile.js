@@ -24,7 +24,6 @@ module.exports = function (grunt) {
   
   grunt.initConfig(config);
 
-
   grunt.initConfig({
     less: {
       all: {
@@ -37,7 +36,7 @@ module.exports = function (grunt) {
     },
     bowerInstall: {
       target: {     
-        src: [ 'static/index.html' ]
+        src: [ 'templates/index.html' ]
       }
     },
     ngAnnotate: {
