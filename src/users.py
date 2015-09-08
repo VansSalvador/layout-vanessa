@@ -2,7 +2,7 @@ from .server import db
 from flaskext.auth import AuthUser,login_required
 from mongoalchemy.document import Document
 from mongoalchemy.fields import *
-import flask,json,time
+import flask,json,time,random
 
 class User(Document,AuthUser):
     username = StringField() #email
@@ -10,13 +10,14 @@ class User(Document,AuthUser):
     password = StringField()
     active = BoolField(default=True)
     fullname = StringField()
-    salt = StringField(default=str(int(time.time())))
+    salt = StringField()
     creation = IntField(default=int(time.time()))
 
 class Company(Document):
     users = ListField(DocumentField(User))
-    token = StringField()
     name = StringField()
+    api_key = StringField() #128-bit http://randomkeygen.com/
+    api_secret = StringField() #256-bit http://randomkeygen.com/
 
 def getuser(username=None):
     if username==None:
@@ -74,9 +75,15 @@ def adduser():
     else:#user being created
         user,company=myuser,mycompany
     newuser = User(username=flask.request.json['mail'],role=flask.request.json['role'],active=flask.request.json['active']=='active',fullname=flask.request.json['name'])
-    newuser.set_and_encrypt_password(flask.request.json['pass'])
+    newuser.set_and_encrypt_password(flask.request.json['pass'],createsalt())
     if current:
         newuser.creation=user.creation
     company.users.append(newuser)
     db.save(company)
     return 'ok'
+
+def createsalt():
+    salt=''
+    while(len(salt)<10):
+        salt+=str(random.randint(0,9))
+    return salt
