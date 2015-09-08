@@ -1,20 +1,31 @@
 module.exports = function (grunt) {
   require('load-grunt-tasks')(grunt);
+  grunt.loadTasks('grunt-tasks');
+  
+  
+  function loadConfig(path) {
+    var glob = require('glob');
+    var object = {};
+  
+    glob.sync('*', { cwd: path }).forEach(function(option) {
+      var key = option.replace(/\.js$/, '');
+      object[key] = require(path + option);
+    });
+  
+    return object;
+  }
+  
+  var config = {
+    pkg: grunt.file.readJSON('package.json'),
+    env: process.env
+  };
+  
+  grunt.util._.extend(config, loadConfig('./grunt-tasks/options/'));
+  
+  grunt.initConfig(config);
+
 
   grunt.initConfig({
-    pkg: grunt.file.readJSON('package.json'),
-    teamcity: {
-      all: {}
-    },
-    html2js: {
-      app: {
-        options: {
-          base: 'static/'
-        },
-        src: ['static/**/*.tmpl.html'],
-        dest: 'build/static/app.templates.js'
-      }
-    },
     less: {
       all: {
         src: 'static/style.less',
@@ -45,24 +56,6 @@ module.exports = function (grunt) {
             extDot: 'last',
           },
         ],
-      }
-    },/*
-    connect: {
-      serve: {
-        options: {
-          port: 8080,
-          base: 'build/static/',
-          hostname: '*',
-          debug: true
-        }
-      }
-    },*/
-    js_beautify: {
-      options: {
-        // js-beautify options go here
-      },
-      files: {
-        'dest/default_options': ['static/**/*.js', 'static/*.js']
       }
     },
     watch: {
