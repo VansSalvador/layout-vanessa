@@ -27,7 +27,7 @@ describe('Testa o gerenciamento de usuários', function() {
         expect(trs[trs.length-1].getText()).toContain('novo@epicom.com.br');
     });
   });
-  it('Atualiza usuário',function(){
+  it('Atualiza usuário (email)',function(){
     browser.findElements(by.css('.editUser')).then(function(trs){
         trs[trs.length-1].click();
     });
@@ -39,6 +39,19 @@ describe('Testa o gerenciamento de usuários', function() {
         var lastline=trs[trs.length-1];
         expect(lastline.getText()).toContain('novo2@epicom.com.br');
         expect(lastline.getText()).not.toContain('novo@epicom.com.br');
+    });
+  });
+  it('Atualiza usuário (nome)',function(){
+    browser.findElements(by.css('.editUser')).then(function(trs){
+        trs[trs.length-1].click();
+    });
+    element(by.id('user')).clear();
+    element(by.id('user')).sendKeys('João da Silva');
+    fillpass();
+    element(by.id('btnSave')).click();
+    browser.findElements(by.css('.userline')).then(function(trs){
+        var lastline=trs[trs.length-1];
+        expect(lastline.getText()).toContain('João da Silva');
     });
   });
   it('Remove usuário',function(){
