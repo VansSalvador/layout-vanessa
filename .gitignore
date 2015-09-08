@@ -21,7 +21,8 @@ npm-debug.log
 node_modules/
 
 # build dir
-build/
+.tmp/
+src/vendor/
 
 # Bower files
 static/vendor

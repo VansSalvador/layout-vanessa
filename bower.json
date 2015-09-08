@@ -1,11 +1,14 @@
 {
   "name": "painel-parceiros",
+  "appPath": "src/app",
+  "moduleName": "appEpicom",
   "version": "0.0.0",
   "ignore": [
     "**/.*",
     "node_modules",
     "bower_components",
     "static/vendor",
+    "src/vendor",
     "test",
     "tests"
   ],

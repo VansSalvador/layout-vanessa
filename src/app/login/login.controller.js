@@ -1,6 +1,6 @@
 (function(angular) {
 
-    function LoginController($scope, $http, $window) {
+    function LoginController($scope, $http, $rootScope, $window) {
         var vm = this;
         
         vm.username = '';
@@ -8,14 +8,20 @@
         vm.error = '';
         vm.authenticate = authenticate;
         vm.logout = logout;
-         
+
+        function setCurrentUser(user) {
+            $rootScope.currentUser = user;
+        }
+
         function authenticate() {
             vm.error = '';
             $http.post('/login', { user: vm.username, pass: vm.password })
                 .then(function(response) {
-                    if (response.data == '302') {
+                    if (response.status == 200) {
+                        setCurrentUser(response.data);
+                        // TODO: Redirecionar corretamente.
                         $window.location.href = '/painel';
-                    } else if (response.data == '401') {
+                    } else if (response.status == 401) {
                         vm.error = 'Sua conta está inativa, contate o administrador.'
                     } else {
                         vm.error = 'E-mail ou senha inválida.';
@@ -27,12 +33,14 @@
         
         function logout() {
             $http.post('/logout')
-                .then(function(response) {}, function response() {});
+                .then(function(response) {
+                    setCurrentUser(undefined);
+                }, function response() {});
         }
     }
 
     // Inject dependencies
-    LoginController.$inject = ['$scope', '$http', '$window'];
+    LoginController.$inject = ['$scope', '$http', '$rootScope', '$window'];
     
     // Export
     angular

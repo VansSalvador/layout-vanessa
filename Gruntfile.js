@@ -1,43 +1,43 @@
 module.exports = function (grunt) {
   require('load-grunt-tasks')(grunt);
-  grunt.loadTasks('grunt-tasks');
-  
-  
-  function loadConfig(path) {
-    var glob = require('glob');
-    var object = {};
-  
-    glob.sync('*', { cwd: path }).forEach(function(option) {
-      var key = option.replace(/\.js$/, '');
-      object[key] = require(path + option);
-    });
-  
-    return object;
-  }
-  
-  var config = {
-    pkg: grunt.file.readJSON('package.json'),
-    env: process.env
-  };
-  
-  grunt.util._.extend(config, loadConfig('./grunt-tasks/options/'));
-  
-  grunt.initConfig(config);
 
   grunt.initConfig({
-    less: {
-      all: {
-        src: 'static/style.less',
-        dest: 'build/static/style.css',
+    pkg: grunt.file.readJSON('package.json'),
+    env: process.env,
+    html2js: {
+      appEpicom: {
         options: {
-          report: 'gzip'
+          base: 'src/app/',
+          fileHeaderString: '/* global angular: false */\n'
+        },
+        src: ['src/app/**/*.tmpl.html'],
+        dest: 'static/js/epicom/appEpicom.templates.js',
+        rename: function(moduleName) {
+          return '/' + moduleName.replace('.html', '');
+        },
+        useStrict: true,
+        htmlmin: {
+          collapseBooleanAttributes: true,
+          collapseWhitespace: true,
+          removeAttributeQuotes: true,
+          removeComments: true,
+          removeEmptyAttributes: true,
+          removeRedundantAttributes: true,
+          removeScriptTypeAttributes: true,
+          removeStyleLinkTypeAttributes: true
         }
       }
     },
-    bowerInstall: {
-      target: {     
-        src: [ 'templates/index.html' ]
+    js_beautify: {
+      options: {
+        // js-beautify options go here
+      },
+      files: {
+      'dest/default_options': ['static/**/*.js', 'static/*.js', 'grunt-tasks/*.js', 'grunt-tasks/**/*.js']
       }
+    },
+    teamcity: {
+      all: {}
     },
     ngAnnotate: {
       options: {
@@ -45,16 +45,24 @@ module.exports = function (grunt) {
           add: true,
           remove: true
       },
-      appEpicom: {
+      app: {
         files: [
           {
             expand: true,
-            cwd: 'static/app',
-            src: '*.js', 
-            ext: '.js',
-            extDot: 'last',
+            cwd: 'src/app',
+            src: '*.js',
+            dest: 'src/app'
           },
         ],
+      }
+    },
+    less: {
+      all: {
+        src: 'src/app/style.less',
+        dest: 'static/css/epicom/style.css',
+        options: {
+          report: 'gzip'
+        }
       }
     },
     watch: {
@@ -62,27 +70,31 @@ module.exports = function (grunt) {
         atBegin: true
       },
       templates: {
-        files: ['static/*.tpl.html'],
+        files: ['src/app/**/*.tmpl.html'],
         tasks: ['html2js']
       },
       less: {
-        files: ['static/style.less', 'static/**/*.less'],
+        files: ['src/app/style.less', 'src/app/**/*.less'],
         tasks: ['less']
       },
       sources: {
-        files: ['static/app/**/*.js', 'static/app/*.js'],
+        files: ['src/app/**/*.js', 'src/app/*.js'],
         tasks: ['ngAnnotate', 'concat_sourcemap:app']
       },
       images: {
-        files: ['static/**/*.png', 'static/**/*.gif', 'static/**/*.jpg'],
+        files: ['src/app/**/*.png', 'src/app/**/*.gif', 'src/app/**/*.jpg'],
         tasks: ['copy:images']
       },
+      css: {
+        files: ['src/vendor/angular-ui-grid/ui-grid.css', 'src/app/**/*.css'],
+        tasks: ['copy:css1']
+      },
       index: {
-        files: 'static/index.html',
+        files: 'src/app/index.html',
         tasks: ['copy:index']
       },
       jsTest: {
-        files: ['src/client/test/karma.conf.js', 'src/client/test/spec/{,*/}*.js'],
+        files: ['src/test/test/karma.conf.js', 'src/test/test/spec/{,*/}*.js'],
         tasks: ['karma']
       }
     },
@@ -91,27 +103,38 @@ module.exports = function (grunt) {
         sourcesContent: true
       },
       app: {
-        src: ['static/js/**/*.js', 'static/js/*.js'],
-        dest: 'build/static/app.js'
+        src: ['src/app/**/*.js', 'src/app/*.js'],
+        dest: 'static/js/epicom/appEpicom.js'
       },
       libs: {
         src: [
-          'static/libs/angular/angular.js',
-          'static/libs/angular-animate/angular-animate.js',
-          'static/libs/angular-mocks/angular-mocks.js',
-          'static/libs/angular-ui-router/release/angular-ui-router.js'
+          'src/vendor/jquery/dist/jquery.js',
+          'src/vendor/angular/angular.js',
+          'src/vendor/angular-animate/angular-animate.js',
+          'src/vendor/angular-route/angular-route.js',
+          'src/vendor/angular-ui-router/release/angular-ui-router.js'
         ],
-        dest: 'build/static/libs.js'
+        dest: 'static/js/epicom/libs.js'
       }
     },
     copy: {
+      css2: {
+        cwd: 'src/vendor/angular-ui-grid/',
+        src: ['ui-grid.css'],
+        dest: 'static/css/',
+      },
+      css1: {
+        cwd: 'src/app/css',
+        src: ['src/app/css/*.css'],
+        dest: 'static/css/',
+      },
       images: {
-        src: ['static/**/*.png', 'static/**/*.gif', 'static/**/*.jpg'],
-        dest: 'build/static/',
+        src: ['src/app/**/*.png', 'src/app/**/*.gif', 'src/app/**/*.jpg'],
+        dest: 'static/',
       },
       index: {
-        src: 'static/index.html',
-        dest: 'build/static/index.html',
+        src: 'src/app/index.html',
+        dest: 'static/index.html',
         options: {
           processContent: function (content, srcpath) {
             // Compiling index.html file!
@@ -127,7 +150,7 @@ module.exports = function (grunt) {
     },
     clean: {
       all: {
-        src: ['build/static/']
+        src: ['static/css/epicom', 'static/js/epicom', 'static/index.html']
       }
     },
     // Test settings
@@ -136,10 +159,16 @@ module.exports = function (grunt) {
         configFile: 'src/client/test/karma.conf.js',
         singleRun: true
       }
+    },
+    useminPrepare: {
+      html: 'src/app/index.html'
+    },
+    usemin: {
+      html: 'static/index.html'
     }
   });
 
   grunt.registerTask('build', ['clean', 'html2js', 'less', 'ngAnnotate', 'concat_sourcemap:app', 'concat_sourcemap:libs', 'copy']);
-  grunt.registerTask('default', ['clean', 'concat_sourcemap:libs', /*'connect',*/ 'watch']);
+  grunt.registerTask('default', ['clean', 'concat_sourcemap:libs', 'watch']);
   grunt.registerTask('test', ['karma']);
 };

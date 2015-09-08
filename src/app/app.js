@@ -1,4 +1,4 @@
-var app = angular.module('appEpicom', ['ngRoute', 'ui.router']);
+var app = angular.module('appEpicom', ['templates-appEpicom', 'ngRoute', 'ui.router'/*, 'ui-grid'*/]);
 
 /**
  * Configure the Routes
@@ -22,7 +22,7 @@ app
                 redirectTo: '/'
             });
     }])
-    .config(function($urlRouterProvider) {
+    .config(['$urlRouterProvider', function($urlRouterProvider) {
         //any url that doesn't exist in routes redirect to '/'
         $urlRouterProvider.otherwise('/');
-    });
+    }]);
