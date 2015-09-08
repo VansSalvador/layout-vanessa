@@ -67,10 +67,11 @@ def adduser():
     myuser,mycompany=getuser()
     user,company=None,None
     if current:#user being updated
-        user,company=getuser(current)
-        if company.name!=mycompany.name:
+        user,company=getuser(flask.request.json['mail'])
+        if company!=None and company.name!=mycompany.name:
             #trying to inser a user whose email clashes with one from another company
-            flask.abort(1838)
+            flask.abort(422)
+        user,company=getuser(current)
         company.users.remove(user)
     else:#user being created
         user,company=myuser,mycompany

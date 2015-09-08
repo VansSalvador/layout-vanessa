@@ -16,6 +16,17 @@ describe('Testa o gerenciamento de usuários', function() {
     expect(browser.driver.getCurrentUrl()).toContain('/painel');
     browser.get(BASEURL+'static/usuarios.html');
   });
+  it('Cria usuário',function(){
+    element(by.id('adduserbtn')).click();
+    element(by.id('user')).sendKeys('Novo');
+    element(by.id('email')).sendKeys('novo@epicom.com.br');
+    element(by.id('roleoptionuser')).click();
+    fillpass();
+    element(by.id('btnSave')).click();
+    browser.findElements(by.css('table.users tr')).then(function(trs){
+        expect(trs[trs.length-1].getText()).toContain('novo@epicom.com.br');
+    });
+  });
   it('Atualiza usuário',function(){
     browser.findElements(by.css('.editUser')).then(function(trs){
         trs[trs.length-1].click();
@@ -62,7 +73,7 @@ describe('Testa o gerenciamento de usuários', function() {
     element(by.id('email')).sendKeys('papaleguas@acme.com');
     fillpass();
     element(by.id('btnSave')).click();
-    browser.sleep('5000');//TODO
+    //browser.sleep(5000);//TODO
     expect(element(by.id('errormessage')).getText()).toContain('Escolha outro endereço de e-mail.');
   });
 });

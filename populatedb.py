@@ -23,8 +23,16 @@ with app.app_context():
         user.set_and_encrypt_password('password',createsalt())
         inactive = User(username='inativo@epicom.com.br',role='user',active=False,fullname='Inativo',salt=createsalt())
         inactive.set_and_encrypt_password('password',createsalt())
-        epicom = Company(name='Epicom',users=[admin,user,inactive],api_key='3CBCDE7DC484A',api_secret='7936DE1F95E83A3DAEB17BEBBACAF')
+        old = User(username='old@epicom.com.br',role='user',active=False,fullname='Velho',salt=createsalt())
+        old.set_and_encrypt_password('password',createsalt())
+        old.creation=1
+        epicom = Company(name='Epicom',users=[admin,user,inactive,old],api_key='3CBCDE7DC484A',api_secret='7936DE1F95E83A3DAEB17BEBBACAF')
         db.insert(epicom)
+
+        papaleguas = User(username='papaleguas@acme.com',role='admin',active=True,fullname='Pápa-léguas')
+        papaleguas.set_and_encrypt_password('password',createsalt())
+        acme = Company(name='ACME',users=[papaleguas],api_key='485EEE7F52C9B',api_secret='7BF9B68A1AB942C2CBD847587526F')
+        db.insert(acme)
         print('ok')
     else:
         raise Exception('unknown argument')
@@ -32,4 +40,4 @@ with app.app_context():
     for item in db.query(Company).filter({}).all():
         print(item.name)
         for user in item.users:
-            print(' '+user.salt)
+            print(' '+user.username)
