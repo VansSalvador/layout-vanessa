@@ -1,5 +1,14 @@
 module.exports = function (grunt) {
   require('load-grunt-tasks')(grunt);
+  require('time-grunt')(grunt);
+
+  // New task for flask server
+  grunt.registerTask('flask', 'Run flask server.', function() {
+    var spawn = require('child_process').spawn;
+    grunt.log.writeln('Starting Flak development server.');
+    // stdio: 'inherit' let us see flask output in grunt
+    spawn('python', ['main.py'], {stdio: 'inherit'});
+  });
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -49,7 +58,7 @@ module.exports = function (grunt) {
           {
             expand: true,
             cwd: 'src/app/',
-            src: '*.js',
+            src: '**//*.js',
             dest: 'src/app/'
           },
         ],

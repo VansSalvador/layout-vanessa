@@ -11,6 +11,7 @@
           vm.data = { };
         }
     }
+    PedidoController.$inject = ['$scope', '$http', '$rootScope', '$window'];
     
     // Export
     angular

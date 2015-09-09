@@ -76,6 +76,7 @@
         vm.gridOptions = gridOptions;
         vm.paginationOptions = paginationOptions;
     }
+    PedidoListaController.$inject = ['$scope', '$http', '$rootScope', '$window', 'uiGridConstants'];
     
     // Export
     angular

@@ -1,12 +1,11 @@
 (function(angular) {
 
+    /*@ngInject*/
     function TopNavBarController($scope) {
         $scope.$on('$includeContentLoaded', function(event) {
             $('.dropitmenu').dropit();
         });
     }
-
-    // Inject dependencies
     TopNavBarController.$inject = ['$scope'];
 
     // Export

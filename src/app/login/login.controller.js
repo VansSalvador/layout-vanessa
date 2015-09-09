@@ -39,6 +39,7 @@
                 }, function response() {});
         }
     }
+    LoginController.$inject = ['$scope', '$http', '$rootScope', '$window'];
     
     // Export
     angular
