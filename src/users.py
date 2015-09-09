@@ -1,8 +1,8 @@
-from .server import db
 from flaskext.auth import AuthUser,login_required
 from mongoalchemy.document import Document
 from mongoalchemy.fields import *
 import flask,json,time,random
+import src.server as server
 
 class User(Document,AuthUser):
     username = StringField() #email
@@ -25,7 +25,7 @@ def getuser(username=None):
         if username==None:
             flask.abort(403)
         username=username.username
-    company=db.query(Company).filter({'users': {'$elemMatch': {'username': username}}}).first()
+    company=server.db.query(Company).filter({'users': {'$elemMatch': {'username': username}}}).first()
     if company==None:
         return None,None
     for user in company.users:
@@ -43,7 +43,7 @@ def listusers(current=None):
     checkprivilege()
     if current==None:
         current=AuthUser.load_current_user()
-    q=db.query(Company)
+    q=server.db.query(Company)
     q.raw_output()
     return json.dumps(q.filter({'users': {'$elemMatch': {'username': current.username}}}).first()['users'])
 
@@ -52,7 +52,7 @@ def deleteuser():
     checkprivilege()
     user,company=getuser(flask.request.json['user'])
     company.users.remove(user)
-    db.save(company)
+    server.db.save(company)
     return 'ok'
 
 '''
@@ -80,7 +80,7 @@ def adduser():
     if current:
         newuser.creation=user.creation
     company.users.append(newuser)
-    db.save(company)
+    server.db.save(company)
     return 'ok'
 
 def createsalt():

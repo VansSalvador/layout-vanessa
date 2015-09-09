@@ -1,5 +1,6 @@
 from src import server,login,users
-import flask,json,hashlib
+from mongoalchemy.session import Session
+import flask,json,hashlib,os,settings
 
 server.app=flask.Flask(__name__)
 jinja_options = server.app.jinja_options.copy()
@@ -24,6 +25,9 @@ server.app.add_url_rule('/logoff','logoff',login.logoff)
 server.app.add_url_rule('/api/listusers','listusers',users.listusers)
 server.app.add_url_rule('/api/deleteuser','deleteuser',users.deleteuser,methods=['POST'])
 server.app.add_url_rule('/api/adduser','adduser',users.adduser,methods=['POST'])
+
+server.app.config.from_object(os.environ['PAINELCONFIG'] if 'PAINELCONFIG' in os.environ else settings.DevelopmentConfig())
+server.db=Session.connect(server.app.config['PAINEL_DBNAME'],host=server.app.config['PAINEL_DBURI'])
 
 if __name__ == '__main__':
     server.app.run(debug=True)

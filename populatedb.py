@@ -1,10 +1,11 @@
 from flaskext.auth import Auth
 from mongoalchemy.session import Session
 from src.users import User,Company,createsalt
-import flask,hashlib,sys
+import flask,hashlib,sys,os,settings
 
-db = Session.connect('painel')
 app = flask.Flask(__name__)
+app.config.from_object(os.environ['PAINELCONFIG'] if 'PAINELCONFIG' in os.environ else settings.DevelopmentConfig())
+db=Session.connect(app.config['PAINEL_DBNAME'],host=app.config['PAINEL_DBURI'])
 auth=Auth(app)
 app.auth.hash_algorithm = lambda to_encrypt: hashlib.sha1(to_encrypt.encode('utf-8'))#prevents encoding error
 
