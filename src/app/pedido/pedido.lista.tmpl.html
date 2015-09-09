@@ -1,5 +1,5 @@
-<div class="wrap-content">
+<div class="wrap-content" ng-controller="PedidoListaController as ctrl">
   <div class="row">
-    <div ui-grid="{ data: data }"></div>
+    <div ui-grid="ctrl.gridOptions" ui-grid-pagination></div>
   </div>
 </div>
