@@ -7,8 +7,8 @@ exports.config = {
     ],
   multiCapabilities: [
   	{'browserName': 'firefox'},
-  	{'browserName': 'internet explorer'},
   	{'browserName': 'chrome'},
+  	//{'browserName': 'internet explorer'},
   	],
   maxSessions: 1,
 }

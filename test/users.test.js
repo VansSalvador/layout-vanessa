@@ -12,8 +12,8 @@ describe('Testa o gerenciamento de usuários', function() {
     element(by.id('txtEmail')).sendKeys('admin@epicom.com.br');
     element(by.id('txtPassword')).sendKeys('password');
     element(by.id('btnEntrar')).click();
-    browser.sleep(1000);//chrome não espera o carregamento
-    expect(browser.driver.getCurrentUrl()).toContain('/painel');
+    browser.sleep(WAIT);//chrome não espera o carregamento
+    //expect(browser.driver.getCurrentUrl()).toContain('/painel');
     browser.get(BASEURL+'static/usuarios.html');
   });
   it('Cria usuário',function(){
@@ -77,6 +77,18 @@ describe('Testa o gerenciamento de usuários', function() {
         var lastline=trs[trs.length-1];
         expect(lastline.getAttribute("created")).toEqual('1');
     });
+    //retorna usuário ao estado original TODO o melhor seria executar populatedb.py antes de abrir cada browser
+    browser.findElements(by.css('.editUser')).then(function(trs){
+        trs[trs.length-1].click();
+    });
+    element(by.id('email')).clear();
+    element(by.id('email')).sendKeys('velho@epicom.com.br');
+    fillpass();
+    element(by.id('btnSave')).click();
+    browser.findElements(by.css('.creationdate')).then(function(trs){
+        var lastline=trs[trs.length-1];
+        expect(lastline.getAttribute("created")).toEqual('1');
+    });
   });
   it('Tenta criar usuário com e-mail existente em outra empresa',function(){
     browser.findElements(by.css('.editUser')).then(function(trs){
@@ -86,7 +98,6 @@ describe('Testa o gerenciamento de usuários', function() {
     element(by.id('email')).sendKeys('papaleguas@acme.com');
     fillpass();
     element(by.id('btnSave')).click();
-    //browser.sleep(5000);//TODO
     expect(element(by.id('errormessage')).getText()).toContain('Escolha outro endereço de e-mail.');
   });
 });
