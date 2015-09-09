@@ -58,7 +58,7 @@
 				<div class="f-left col_50">
 					<h2 class="f-left">Usuários</h2>
 				</div>
-				<div class="f-left col_50">
+				<div class="f-left col_50 removed">
 					<button class="f-right ico icon-print"></button>
 					<ul class="dropitmenu f-right downselect">
 						<li>
@@ -73,11 +73,11 @@
 			</div>
 			<div class="row">
 				<div class="f-left">
-					<button class="btn red m-r20 editUser" id="" ng-click="opendialog(false);">Adicionar usuário</button>
+					<button class="btn red m-r20 editUser" id="adduserbtn" ng-click="opendialog(false);">Adicionar usuário</button>
 				</div>
 				<div class="f-right col_70 t-right">
 					<span class="m-r20">Mostrando {{users.length}} de {{users.length}} registrados</span>
-					<input class="input search" placeholder="Buscar">
+					<input class="input search removed" placeholder="Buscar">
 				</div>
 			</div>
 			<div class="row">
@@ -95,7 +95,7 @@
 								</tr>
 							</thead>
 							<tbody >
-								<tr ng-repeat="user in users">
+								<tr class="userline" ng-repeat="user in users">
 									<td>{{user.fullname}}</td>
 									<td>{{user.username}}</td>
 									<td>
@@ -104,7 +104,7 @@
 											{{user.role=='admin'?'Administrador':'Usuário'}}
 										</span>
 									</td>
-									<td>{{user.creation*1000 | date:'dd MMM, yyyy'}}</td>
+									<td created="{{user.creation}}" class="creationdate">{{user.creation*1000 | date:'dd MMM, yyyy'}}</td>
 									<td>
                                         <button class="ico icon-edit editUser" ng-click="opendialog(user);"></button>
                                         <button class="ico icon-delete deleteUser" ng-click="confirmdelete(user);"></button></td>
@@ -116,7 +116,7 @@
 			</div>
 			<div class="row m-b15">
 				<div class="col_100">
-					<div class="f-right table-pagination ">
+					<div class="f-right table-pagination removed">
 						<label>Exibir</label> <select class="input"><option>10 linhas</option></select> 
 						<ul>
 							<li><a href="#">Anterior</a></li>
@@ -154,7 +154,7 @@
                             E-mail inválido
                         </span>
                         <label class="d-block t-700 m-b5" for="email">E-mail</label>
-                        <input type="email" class="input col_100 m-b5" id="email"  ng-model="mail" name="mail" required/>
+                        <input type="email" class="input col_100 m-b5 forcelowercase" id="email"  ng-model="mail" name="mail" required/>
                     </li>
                     <li ng-class="{error:addform.role.$dirty&&!role,}">
                         <span class="error-message" ng-show="addform.role.$dirty&&!role">
@@ -162,9 +162,9 @@
                         </span>
                         <label class="d-block t-700 m-b5" for="profile">Selecione o perfil</label>
                         <select class="input col_100 m-b5" id="profile"  ng-model="role" name="role" required>
-                            <option value=""></option>
-                            <option value="user">Usuário</option>
-                            <option value="admin">Administrador</option>
+                            <option value="" id="roleoptionblank"></option>
+                            <option value="user" id="roleoptionuser">Usuário</option>
+                            <option value="admin" id="roleoptionadmin">Administrador</option>
                         </select>
                     </li>
                     <li class="passwrap"
@@ -189,7 +189,7 @@
                     <li>
                         <input type="checkbox" value="ativo" id="active"><label class="t-700 m-l10" for="active">Ativo</label>
                     </li>
-                    <li id="errormessage" class="visiblefeedback" ng-show="servererror">Erro no sistema tente mais tarde.</li>
+                    <li id="errormessage" class="visiblefeedback" ng-show="servererror">{{servererror}}</li>
                 </ul>
             </div>
             <div class="dialog-footer">
@@ -205,7 +205,7 @@
 			<p>Tem certeza que você realmente quer deletar o usuário <span class="t-700" id="deletename"></span>?</p>
 		</div>
 		<div class="dialog-footer">
-			<button class="btn red" ng-click="deleteuser();">Deletar</button>
+			<button class="btn red" ng-click="deleteuser();" id="confirmdelete">Deletar</button>
 			<button class="btn cancel" ng-click="closedelete();">Cancelar</button>
 		</div>
 	</div>

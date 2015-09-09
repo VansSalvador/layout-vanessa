@@ -4,15 +4,15 @@ var refresh=false;
 var editing=false;
 var formscope=false;
 
-function opendialog(user){
-    editing=user;
+function opendialog(currentuser){
+    editing=currentuser?currentuser.username:false;
     formscope.pass1='';
     formscope.pass2='';
     if(editing){
         document.querySelector('#dialogUser #active').checked=user.active;
-        formscope.name=user.fullname;
-        formscope.mail=user.username;
-        formscope.role=user.role;
+        formscope.name=currentuser.fullname;
+        formscope.mail=currentuser.username;
+        formscope.role=currentuser.role;
     }else{
         document.querySelector('#dialogUser #active').checked=true;
         formscope.name='';
@@ -61,12 +61,12 @@ app.controller('adduser',['$scope','$http',function($scope,$http){
             role:$scope.role,
             pass:$scope.pass1,
             active:document.querySelector('#dialogUser #active').checked?'active':'inactive',
-            current:editing?editing.username:false,
+            current:editing,
         }).then(function(users){
             $( "#dialogUser" ).dialog( "close" );
             refresh();
         },function(error){
-            $scope.servererror=true;
+            $scope.servererror=error.status==422?'Escolha outro endereço de e-mail.':'Erro no sistema tente mais tarde.';
         });
     };
     $scope.closeuserform=function(){
