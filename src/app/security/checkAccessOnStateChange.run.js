@@ -1,10 +1,10 @@
-(function(angular) {
+(function (angular) {
 
     function checkAccessOnStateChange($rootScope, authenticationService, $state) {
 
         // Listen for location changes
         // This happens before route or state changes
-        $rootScope.$on('$locationChangeStart', function(event, newUrl, oldUrl) {
+        $rootScope.$on('$locationChangeStart', function (event, newUrl, oldUrl) {
             if (!authenticationService.isLoggedIn()) {
 
                 // Redirect to login
@@ -15,7 +15,7 @@
         });
 
         // Listen for route changes when using ngRoute
-        $rootScope.$on('$routeChangeStart', function(event, nextRoute, currentRoute) {
+        $rootScope.$on('$routeChangeStart', function (event, nextRoute, currentRoute) {
 
             // Here we simply check if logged in but you can
             // implement more complex logic that inspects the
@@ -30,14 +30,14 @@
         });
 
         // Listen for state changes when using ui-router
-        $rootScope.$on('$stateChangeStart', function($state, event, toState, toParams, fromState, fromParams) {
+        $rootScope.$on('$stateChangeStart', function ($state, event, toState, toParams, fromState, fromParams) {
 
             // Here we simply check if logged in but you can
             // implement more complex logic that inspects the
             // state to see if access is allowed or not
             if (!authenticationService.isLoggedIn()) {
                 // Redirect to login
-				$state.go('/')
+                $state.go('/')
 
                 // Prevent state change
                 event.preventDefault();

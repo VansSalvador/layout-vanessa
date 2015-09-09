@@ -1,8 +1,8 @@
-(function(angular) {
+(function (angular) {
 
     angular
         .module('appEpicom')
-        .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
+        .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
             // Rota padrão
             $urlRouterProvider.otherwise('/');
 

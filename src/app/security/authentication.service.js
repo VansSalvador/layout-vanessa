@@ -1,5 +1,5 @@
 // http://www.jvandemo.com/learn-how-to-make-authentication-in-your-angular-applications-simpler-and-more-consistent/
-(function(angular) {
+(function (angular) {
 
     function authenticationService($http, authorizationService) {
 
@@ -8,7 +8,7 @@
          * @returns boolean
          */
         this.isLoggedIn = function isLoggedIn() {
-            return session.getUser() !== null;
+            return authorizationService.getUser() !== null;
         };
 
         /**
@@ -17,10 +17,10 @@
          * @param credentials
          * @returns {*|Promise}
          */
-        this.logIn = function(credentials) {
+        this.logIn = function (credentials) {
             return $http
                 .post('/login', credentials)
-                .then(function(response) {
+                .then(function (response) {
                     var data = response.data;
                     authorizationService.setUser(data.user);
                     authorizationService.setAccessToken(data.accessToken);
@@ -32,10 +32,10 @@
          *
          * @returns {*|Promise}
          */
-        this.logOut = function() {
+        this.logOut = function () {
             return $http
                 .get('/logout')
-                .then(function(response) {
+                .then(function (response) {
 
                     // Destroy session in the browser
                     authorizationService.destroy();

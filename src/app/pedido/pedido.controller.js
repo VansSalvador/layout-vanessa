@@ -1,18 +1,18 @@
-(function(angular) {
+(function (angular) {
 
     /* @ngInject */
     function PedidoController($scope, $http, $rootScope, $window) {
         var vm = this;
-        
-        vm.data = { };
+
+        vm.data = {};
         vm.load = load;
 
         function load() {
-          vm.data = { };
+            vm.data = {};
         }
     }
     PedidoController.$inject = ['$scope', '$http', '$rootScope', '$window'];
-    
+
     // Export
     angular
         .module('appEpicom')

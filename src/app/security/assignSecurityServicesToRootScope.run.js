@@ -1,4 +1,4 @@
-(function(angular) {
+(function (angular) {
 
     function assignSecurityServicesToRootScope($rootScope, authenticationService, authorizationService) {
         $rootScope.authenticationService = authenticationService;

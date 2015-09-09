@@ -1,19 +1,18 @@
-(function(angular) {
+(function (angular) {
 
-     function refresh($http) {
-        $http.get('/api/listusers').then(function(users) { //TODO animated loading feedback
+    function refresh($http) {
+        $http.get('/api/listusers').then(function (users) { //TODO animated loading feedback
             $scope.users = users.data;
-        }, function(error) {
+        }, function (error) {
             alert(error.data); //TODO
         });
     };
-
 
     var app = angular.module('users', []); //can't use the ng-resource because User is an embedded document
     var deletion = false;
     var editing = false;
     var formscope = false;
-    var opendialog = function(user) {
+    var opendialog = function (user) {
         editing = user;
         formscope.pass1 = '';
         formscope.pass2 = '';
@@ -28,39 +27,39 @@
             formscope.mail = '';
             formscope.role = '';
         }
-        
+
         $("#dialogUser").dialog("open");
     };
-    
-    app.controller('userlisting', ['$scope', '$http', function($scope, $http) {
+
+    app.controller('userlisting', ['$scope', '$http', function ($scope, $http) {
         refresh($http);
         $scope.opendialog = opendialog;
-        $scope.confirmdelete = function(user) {
+        $scope.confirmdelete = function (user) {
             deletion = user;
             $("#dialogDeleteUser").dialog("open");
         };
     }]);
-    
-    app.controller('adduserctl', ['$scope', '$http', function($scope, $http) {
+
+    app.controller('adduserctl', ['$scope', '$http', function ($scope, $http) {
         $scope.opendialog = opendialog;
     }]);
-    
-    app.controller('confirmdeletion', ['$scope', '$http', function($scope, $http) {
-        $scope.deleteuser = function() {
+
+    app.controller('confirmdeletion', ['$scope', '$http', function ($scope, $http) {
+        $scope.deleteuser = function () {
             $("#dialogDeleteUser").dialog("close");
             $http.post('/api/deleteuser', {
                 user: deletion.username
-            }).then(function(ok) {
+            }).then(function (ok) {
                 refresh($http);
-            }, function(error) {
+            }, function (error) {
                 alert(error.data); //TODO
             });
         };
     }]);
-    
-    app.controller('adduser', ['$scope', '$http', function($scope, $http) {
+
+    app.controller('adduser', ['$scope', '$http', function ($scope, $http) {
         formscope = $scope;
-        $scope.add = function() {
+        $scope.add = function () {
             $http.post('/api/adduser', {
                 name: $scope.name,
                 mail: $scope.mail,
@@ -68,10 +67,10 @@
                 pass: $scope.pass1,
                 active: document.querySelector('#dialogUser #active').checked ? 'active' : 'inactive',
                 current: editing ? editing.username : false,
-            }).then(function(users) { //TODO animated loading feedback
+            }).then(function (users) { //TODO animated loading feedback
                 $("#dialogUser").dialog("close");
                 refresh($http);
-            }, function(error) {
+            }, function (error) {
                 alert(error.data); //TODO
             });
         };

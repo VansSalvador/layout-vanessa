@@ -1,8 +1,8 @@
-(function(angular) {
+(function (angular) {
 
     /*@ngInject*/
     function TopNavBarController($scope) {
-        $scope.$on('$includeContentLoaded', function(event) {
+        $scope.$on('$includeContentLoaded', function (event) {
             $('.dropitmenu').dropit();
         });
     }

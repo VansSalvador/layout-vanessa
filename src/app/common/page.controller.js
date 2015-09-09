@@ -1,4 +1,4 @@
-(function(angular) {
+(function (angular) {
 
     /*@ngInject*/
     function PageController($scope, $route) {
