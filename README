@@ -10,8 +10,21 @@ Utilize a variável de ambiente PAINELCONFIG para configurar acesso ao banco de 
 
 Dependências:
 
-    pip install flask-auth MongoAlchemy
-    MongoDB
+    Python:
+      pip install flask-auth MongoAlchemy
+      MongoDB
+    
+    NodeJS:
+      npm install -g grunt-cli bower
+      bower install
+      npm install
+      
+    Grunt:
+      grunt [default] -> compila os arquivos JS, LESS, HTML e CSS, roda um servidor flask e fica acompanhando qualquer alteração nos arquivos
+      grunt no-flask -> compila os arquivos JS, LESS, HTML e CSS e fica acompanhando qualquer alteração nos arquivos
+      grunt beautify -> formata o código JS
+      grunt test -> roda os testes do Karma
+      grunt build -> gera os arquivos finais (produção) na pasta static
 
 Para rodar testes no IE11:
 

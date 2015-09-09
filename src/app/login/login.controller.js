@@ -1,7 +1,7 @@
 (function (angular) {
 
     /*@ngInject*/
-    function LoginController($scope, $http, $rootScope, $window) {
+    function LoginController($scope, $http, $rootScope, $state) {
         var vm = this;
 
         vm.username = '';
@@ -23,8 +23,7 @@
                 .then(function (response) {
                     if (response.status == 200) {
                         setCurrentUser(response.data);
-                        // TODO: Redirecionar corretamente.
-                        $window.location.href = '/painel';
+                        $state.go('/painel.principal');
                     } else if (response.status == 401) {
                         vm.error = 'Sua conta está inativa, contate o administrador.'
                     } else {
@@ -42,7 +41,7 @@
                 }, function response() {});
         }
     }
-    LoginController.$inject = ['$scope', '$http', '$rootScope', '$window'];
+    LoginController.$inject = ['$scope', '$http', '$rootScope', '$state'];
 
     // Export
     angular
