@@ -79,8 +79,8 @@ module.exports = function (grunt) {
         },
         less: {
             all: {
-                src: 'src/app/style.less',
-                dest: 'static/css/epicom/style.css',
+                src: 'src/app/styles.less',
+                dest: 'static/css/epicom/styles.css',
                 options: {
                     report: 'gzip'
                 }
