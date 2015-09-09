@@ -1,2 +1,5 @@
 #userheader{padding-right:200px;}
 :disabled{opacity:.5;}
+.forcelowercase{text-transform:lowercase;}
+.removed{display:none;}
+.f-700{margin-top:.75em;}
