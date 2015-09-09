@@ -1,6 +1,7 @@
 from src import server,login,users
 from mongoalchemy.session import Session
 import flask,json,hashlib,os,settings
+from flaskext.auth import Auth
 
 server.app=flask.Flask(__name__)
 jinja_options = server.app.jinja_options.copy()
@@ -15,7 +16,7 @@ jinja_options.update(dict(
 
 server.app.jinja_options = jinja_options
 server.app.secret_key='^mu0n!22#yqy=8a5x1hg5%1!2#dedsn=&cd&$ur3pzqiw+#$yd'
-login.auth=login.Auth(server.app)
+login.auth=Auth(server.app)
 login.auth.user_timeout=8*60*60 #8 hours
 server.app.auth.hash_algorithm = lambda to_encrypt: hashlib.sha1(to_encrypt.encode('utf-8'))#prevents encoding error
 
