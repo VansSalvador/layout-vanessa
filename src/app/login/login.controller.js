@@ -1,5 +1,6 @@
 (function(angular) {
 
+    /* @ngInject */
     function LoginController($scope, $http, $rootScope, $window) {
         var vm = this;
         
@@ -38,9 +39,6 @@
                 }, function response() {});
         }
     }
-
-    // Inject dependencies
-    LoginController.$inject = ['$scope', '$http', '$rootScope', '$window'];
     
     // Export
     angular

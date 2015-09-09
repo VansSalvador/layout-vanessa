@@ -1,3 +1,5 @@
+/*
+
 $(function() {
     $("select.ui-input").selectmenu();
 });
@@ -15,3 +17,5 @@ $(function() {
         onShow: $.datepick.highlightWeek
     });
 });
+
+*/
