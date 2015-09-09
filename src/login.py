@@ -18,7 +18,7 @@ def login():
     if authUser.authenticate(flask.request.json['pass']):
         return flask.jsonify(username = user.username, role = user.role), 200
     else:
-        getResponse(403)
+        return getResponse(403)
 
 
 @login_required()

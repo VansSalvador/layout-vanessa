@@ -8,24 +8,23 @@ module.exports = function (grunt) {
       appEpicom: {
         options: {
           base: 'src/app/',
-          fileHeaderString: '/* global angular: false */\n'
+          fileHeaderString: '/* global angular: false */\n',
+          quoteChar: '\'',
+          useStrict: true,
+          singleModule: true,
+          htmlmin: {
+            collapseBooleanAttributes: true,
+            collapseWhitespace: true,
+            removeAttributeQuotes: true,
+            removeComments: true,
+            removeEmptyAttributes: true,
+            removeRedundantAttributes: true,
+            removeScriptTypeAttributes: true,
+            removeStyleLinkTypeAttributes: true
+          }
         },
-        src: ['src/app/**/*.tmpl.html'],
-        dest: 'static/js/epicom/appEpicom.templates.js',
-        rename: function(moduleName) {
-          return '/' + moduleName.replace('.html', '');
-        },
-        useStrict: true,
-        htmlmin: {
-          collapseBooleanAttributes: true,
-          collapseWhitespace: true,
-          removeAttributeQuotes: true,
-          removeComments: true,
-          removeEmptyAttributes: true,
-          removeRedundantAttributes: true,
-          removeScriptTypeAttributes: true,
-          removeStyleLinkTypeAttributes: true
-        }
+        src: ['src/app/**/*.html', '!src/app/index.html'],
+        dest: 'static/js/epicom/appEpicom.templates.js'
       }
     },
     js_beautify: {
@@ -33,7 +32,7 @@ module.exports = function (grunt) {
         // js-beautify options go here
       },
       files: {
-      'dest/default_options': ['static/**/*.js', 'static/*.js', 'grunt-tasks/*.js', 'grunt-tasks/**/*.js']
+      'dest/default_options': ['src/app/**/*.js', 'src/app/*.js']
       }
     },
     teamcity: {
@@ -49,9 +48,9 @@ module.exports = function (grunt) {
         files: [
           {
             expand: true,
-            cwd: 'src/app',
+            cwd: 'src/app/',
             src: '*.js',
-            dest: 'src/app'
+            dest: 'src/app/'
           },
         ],
       }

@@ -1,6 +1,6 @@
 (function(angular) {
 
-    /* @ngInject */
+    /*@ngInject*/
     function LoginController($scope, $http, $rootScope, $window) {
         var vm = this;
         

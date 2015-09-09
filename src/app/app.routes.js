@@ -4,11 +4,10 @@
     .module('appEpicom')
     .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
       // Rota padrão
-      $urlRouterProvider.otherwise('loggedOut');
+      $urlRouterProvider.otherwise('/');
       
       $stateProvider
-        .state('/', { url: '/', redirectTo: 'loggedOut', data: { requireLogin: true } })
-        .state('loggedOut', { url: '/', template: '<h1>My Contacts</h1>', controller: 'LoginController', data: { requireLogin: true } })
+        .state('loggedOut', { url: '/', templateUrl: 'login/login.tmpl.html', controller: 'LoginController', data: { requireLogin: false } })
         .state('painel', { abstract: true, data: { requireLogin: true }})
         .state('painel.principal', { url: '/painel', templateUrl: 'partials/painel.tmpl.html' });
     }]);
