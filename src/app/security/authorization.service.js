@@ -7,7 +7,7 @@
 
         // Instantiate data when service
         // is loaded
-        this._user = JSON.parse($window.localStorage.getItem());
+        this._user = JSON.parse($window.localStorage.getItem(_userKey));
         this._accessToken = JSON.parse($window.localStorage.getItem(_tokenKey));
 
         this.getUser = function () {
