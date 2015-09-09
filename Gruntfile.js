@@ -119,8 +119,10 @@ module.exports = function (grunt) {
           'src/vendor/jquery/dist/jquery.js',
           'src/vendor/angular/angular.js',
           'src/vendor/angular-animate/angular-animate.js',
-          'src/vendor/angular-route/angular-route.js',
-          'src/vendor/angular-ui-router/release/angular-ui-router.js'
+          'src/vendor/angular-ui-router/release/angular-ui-router.js',
+          'src/vendor/angular-http-status/angular-http-status.js',
+          "src/vendor/angular-http-auth/src/http-auth-interceptor.js",
+          "src/vendor/angular-modal-service/dst/angular-modal-service.js"
         ],
         dest: 'static/js/epicom/libs.js'
       }
@@ -177,6 +179,6 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('build', ['clean', 'html2js', 'less', 'ngAnnotate', 'concat_sourcemap:app', 'concat_sourcemap:libs', 'copy']);
-  grunt.registerTask('default', ['clean', 'concat_sourcemap:libs', 'watch']);
+  grunt.registerTask('default', ['clean', 'concat_sourcemap:libs', 'flask', 'watch']);
   grunt.registerTask('test', ['karma']);
 };
