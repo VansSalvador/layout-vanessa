@@ -33,7 +33,7 @@ def login():
 @login_required()
 def logoff():
     logout()
-    return flask.redirect(flask.url_for('/'))  # TODO change url
+    return flask.jsonify({'message':'OK'}), 200
 
 
 def getResponse(code):
