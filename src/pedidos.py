@@ -1,19 +1,10 @@
-from .server import db
-from flaskext.auth import AuthUser,login_required
-from mongoalchemy.document import Document
-from mongoalchemy.fields import *
-import flask,json,time
+from flaskext.auth import AuthUser, login_required
+import flask
+import requests
 
-
-class Pedido(Document):
-    data = DateTimeField()
-    codigoPedido = IntField()
-    codigoCliente = StringField()
-    nomeCliente = StringField()
-    valor = FloatField()
-    status = StringField()
-    fornecedores = StringField()
-    produtos = StringField()
+from .server import config
+from settings import ConfigFactory
+from src import users
 
 
 @login_required()
@@ -24,11 +15,33 @@ def checkprivilege():
 
 @login_required()
 def getPedido(codigoPedido):
-    # TODO: Load from database
-    return None
+    checkprivilege()
+
+    apiKey, apiToken = users.getApiCredentials()
+
+    url = ConfigFactory.getApiUrl(config, 'v1/marketplace/pedidos/' + codigoPedido)
+    r = requests.get(url, auth=(apiKey, apiToken))
+    r.raise_for_status()
+
+    return r.json(), 200
 
 
 @login_required()
-def listPedidos(current=None):
+def listPedidos(nomeCliente=None, dataInicio=None, dataFim=None, offset=0, limit=10):
     checkprivilege()
-    # TODO: Load from database
+
+    apiKey, apiToken = users.getApiCredentials()
+
+    payload = {
+        'NomeCliente': nomeCliente,
+        'DataInicio': dataInicio,
+        'DataFim': dataFim,
+        'Offset': offset,
+        'Limit': limit
+    }
+
+    url = ConfigFactory.getApiUrl(config, 'v1/marketplace/pedidos/')
+    r = requests.get(url, auth=(apiKey, apiToken), params=payload)
+    r.raise_for_status()
+
+    return r.json(), 200

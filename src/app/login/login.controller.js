@@ -17,13 +17,6 @@
                 $state.go('painel.principal');
             });
         };
-
-        vm.logout = function () {
-            $http.post('/logout')
-                .then(function (response) {
-                    authenticationService.logOut();
-                }, function response() {});
-        };
     }
     LoginController.$inject = ['$scope', '$http', '$rootScope', '$state', 'authenticationService'];
 

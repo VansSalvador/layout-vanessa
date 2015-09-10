@@ -4,12 +4,20 @@
 (function (angular) {
 
     /*@ngInject*/
-    function LayoutController($scope) {
+    function LayoutController($scope, $state, authenticationService, RouteNames) {
         $scope.$on('$viewContentLoaded', function (event) {
             $('.dropitmenu').dropit();
         });
+
+        this.logout = function () {
+            authenticationService
+                .logOut()
+                .then(function () {
+                    $state.go(RouteNames.LOGGED_OFF);
+                });
+        };
     }
-    LayoutController.$inject = ['$scope'];
+    LayoutController.$inject = ['$scope', '$state', 'authenticationService', 'RouteNames'];
 
     // Export
     angular

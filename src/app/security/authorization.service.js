@@ -49,10 +49,10 @@
         };
 
         this.hasRole = function (role) {
-            return isDefined(this._user) && 
+            return isDefined(this._user) &&
                 isDefined(this._user.role) &&
                 this._user.role === role;
-        }
+        };
 
         /**
          * Destroy session

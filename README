@@ -3,15 +3,14 @@ Painel de parceiros Epicom
 
 Após inicializar via painel.py o acesso é feito atualmente através do endereço http://127.0.0.1:5000/static/index.html
 
-Utilize a variável de ambiente PAINELCONFIG para configurar acesso ao banco de dados. Ela aceita os seguintes valores:
+Utilize a variável de ambiente "EPICOM_ENVIRONMENT" para configurar acesso ao banco de dados. Ela aceita os seguintes valores:
 
-    settings.DevelopmentConfig (padrão usado caso a variável não esteja presente)
-    settings.TestingConfig
+    "development" (padrão usado caso a variável não esteja presente), "test", "sandbox" e "production"
 
 Dependências:
 
     Python:
-      pip install flask-auth MongoAlchemy
+      pip install -r requirements.txt
       MongoDB
     
     NodeJS:
