@@ -13,13 +13,18 @@
                     url: '/',
                     templateUrl: 'login/login.tmpl.html',
                     controller: 'LoginController',
+                    views: {
+                        'main': { templateUrl: 'login/login.tmpl.html' }
+                    },
                     data: {
                         requireLogin: false
                     }
                 })
                 .state('accessDenied', {
                     url: '/',
-                    templateUrl: 'security/accessDenied.tmpl.html',
+                    views: {
+                        'main': { templateUrl: 'security/accessDenied.tmpl.html' }
+                    },
                     data: {
                         requireLogin: false
                     }
@@ -28,6 +33,9 @@
                     abstract: true,
                     data: {
                         requireLogin: true
+                    },
+                    views: {
+                        'main': { templateUrl: 'common/layout.tmpl.html' }
                     }
                 })
                 .state('painel.principal', {
