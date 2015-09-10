@@ -6,9 +6,9 @@
 
         var _userKey = 'session.user';
         var _tokenKey = 'session.accessToken';
-        
+
         function isDefined(value) {
-            return angular.isDefined(value) && value !== 'undefined'; 
+            return angular.isDefined(value) && value !== 'undefined';
         }
 
         // Instantiate data when service is loaded
@@ -29,12 +29,12 @@
             $window.localStorage.setItem(_userKey, JSON.stringify(user));
             return this;
         };
-        
-        this.getUserName = function() {
+
+        this.getUserName = function () {
             if (isDefined(this._user) && isDefined(this._user.username)) {
                 return this._user.username;
             }
-            
+
             return "<<< USER NAME >>>";
         };
 
@@ -47,6 +47,12 @@
             $window.localStorage.setItem(_tokenKey, JSON.stringify(token));
             return this;
         };
+
+        this.hasRole = function (role) {
+            return isDefined(this._user) && 
+                isDefined(this._user.role) &&
+                this._user.role === role;
+        }
 
         /**
          * Destroy session

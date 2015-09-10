@@ -40,28 +40,35 @@
                     },
                     views: {
                         'main': {
-                            templateUrl: 'common/layout.tmpl.html'
+                            templateUrl: 'common/layout.tmpl.html',
+                            controller: 'LayoutController'
                         }
                     }
                 })
-                .state('painel.principal', {
+                .state(RouteNames.HOME, {
                     url: '/painel',
-                    templateUrl: 'home/home.tmpl.html',
-                    controller: 'HomeController',
+                    templateUrl: 'home/home.tmpl.html'
                 })
-                .state('painel.listaPedidos', {
+                .state(RouteNames.PEDIDOS, {
                     url: '/pedido',
                     templateUrl: 'pedido/pedido.lista.tmpl.html',
                     controller: 'PedidoListaController',
                     controllerAs: 'vm',
                     title: 'Pedidos'
                 })
-                .state('painel.pedido', {
+                .state(RouteNames.DETALHE_PEDIDO, {
                     url: '/pedido/{idPedido:[0-9]{1,8}}',
                     templateUrl: 'pedido/pedido.tmpl.html',
                     controller: 'PedidoController',
                     controllerAs: 'vm',
                     title: 'Pedido'
+                })
+                .state(RouteNames.USUARIOS, {
+                    url: '/pedido',
+                    templateUrl: 'usuarios/usuario.lista.tmpl.html',
+                    controller: 'UsuarioListaController',
+                    controllerAs: 'vm',
+                    title: 'Pedidos'
                 });
         }]);
 

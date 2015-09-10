@@ -4,16 +4,16 @@
 (function (angular) {
 
     /*@ngInject*/
-    function HomeController($scope) {
-        $scope.$on('$includeContentLoaded', function (event) {
+    function LayoutController($scope) {
+        $scope.$on('$viewContentLoaded', function (event) {
             $('.dropitmenu').dropit();
         });
     }
-    HomeController.$inject = ['$scope'];
+    LayoutController.$inject = ['$scope'];
 
     // Export
     angular
         .module('appEpicom')
-        .controller('HomeController', HomeController);
+        .controller('LayoutController', LayoutController);
 
 })(angular);

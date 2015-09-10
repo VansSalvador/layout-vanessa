@@ -10,9 +10,9 @@
                 <li class="d-inblock">
                     <ul class="dropitmenu">
                         <li>
-                            &bull; <a href="#" class="user-menu">{{::authorizationService.getUserName()}}/s</a>
+                            &bull; <a href="#" class="user-menu">{{::authorizationService.getUserName()}}</a>
                             <ul>
-                                <li><a ui-sref="{{::routeNames.LISTA_USUARIOS}}">Usuários</a></li>
+                                <li><a ui-sref="{{::routeNames.USUARIOS}}" data-ng-show="{{::authorizationService.hasRole('admin')}}">Usuários</a></li>
                                 <li><a ui-sref="{{::routeNames.LOGOFF}}">Sair</a></li>
                             </ul>
                         </li>
