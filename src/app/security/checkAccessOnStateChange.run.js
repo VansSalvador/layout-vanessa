@@ -1,50 +1,26 @@
+/* global angular: false */
+
 (function (angular) {
 
-    function checkAccessOnStateChange($rootScope, authenticationService, $state) {
-
-        // Listen for location changes
-        // This happens before route or state changes
-        $rootScope.$on('$locationChangeStart', function (event, newUrl, oldUrl) {
-            if (!authenticationService.isLoggedIn()) {
-
-                // Redirect to login
-
-                // Prevent location change
-                event.preventDefault();
-            }
-        });
-
-        // Listen for route changes when using ngRoute
-        $rootScope.$on('$routeChangeStart', function (event, nextRoute, currentRoute) {
-
-            // Here we simply check if logged in but you can
-            // implement more complex logic that inspects the
-            // route to see if access is allowed or not
-            if (!authenticationService.isLoggedIn()) {
-
-                // Redirect to login
-
-                // Prevent state change
-                event.preventDefault();
-            }
-        });
+    function checkAccessOnStateChange($rootScope, $injector, authenticationService) {
 
         // Listen for state changes when using ui-router
-        $rootScope.$on('$stateChangeStart', function ($state, event, toState, toParams, fromState, fromParams) {
-
+        $rootScope.$on('$stateChangeStart', function ($injector, event, toState, toParams, fromState, fromParams) {
             // Here we simply check if logged in but you can
             // implement more complex logic that inspects the
             // state to see if access is allowed or not
             if (!authenticationService.isLoggedIn()) {
+                var $state = $injector.get("$state");
+
                 // Redirect to login
-                $state.go('/')
+                $state.go('loggedOut');
 
                 // Prevent state change
                 event.preventDefault();
             }
         });
     }
-    checkAccessOnStateChange.$inject = ['$rootScope', 'authenticationService', '$state'];
+    checkAccessOnStateChange.$inject = ['$rootScope', '$injector', 'authenticationService'];
 
     // Export
     angular

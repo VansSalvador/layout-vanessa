@@ -1,3 +1,5 @@
+/* global angular: false */
+
 (function (angular) {
 
     /* @ngInject */
@@ -46,7 +48,7 @@
             onRegisterApi: function (gridApi) {
                 vm.gridApi = gridApi;
                 vm.gridApi.core.on.sortChanged(vm, function (grid, sortColumns) {
-                    if (sortColumns.length == 0) {
+                    if (sortColumns.length === 0) {
                         vm.paginationOptions.sort = null;
                     } else {
                         vm.paginationOptions.sort = sortColumns[0].sort.direction;
@@ -82,7 +84,7 @@
                     var firstRow = (paginationOptions.pageNumber - 1) * paginationOptions.pageSize;
                     vm.gridOptions.data = data.slice(firstRow, firstRow + paginationOptions.pageSize);
                 });
-        };
+        }
 
         search();
 

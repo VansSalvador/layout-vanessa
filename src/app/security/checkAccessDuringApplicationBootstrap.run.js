@@ -1,18 +1,17 @@
+/* global angular: false */
+
 (function (angular) {
 
-    function checkAccessDuringApplicationBootstrap($window, $state, authenticationService) {
+    function checkAccessDuringApplicationBootstrap($state, authenticationService) {
 
         if (authenticationService.isLoggedIn()) {
             return;
         }
 
-        // Redirect to third party login page
-        $state.go('/')
-
-        // Make sure bootstrap process is stopped
-        throw new Error('Access denied');
+        // Redireciona para a página de login
+        $state.go('loggedOut');
     }
-    checkAccessDuringApplicationBootstrap.$inject = ['$window', '$state', 'authenticationService'];
+    checkAccessDuringApplicationBootstrap.$inject = ['$state', 'authenticationService'];
 
     // Export
     angular

@@ -1,3 +1,5 @@
+/* global angular: false */
+
 (function (angular) {
 
     function authorizationService($log, $window) {
@@ -5,10 +7,14 @@
         var _userKey = 'session.user';
         var _tokenKey = 'session.accessToken';
 
-        // Instantiate data when service
-        // is loaded
-        this._user = JSON.parse($window.localStorage.getItem(_userKey));
-        this._accessToken = JSON.parse($window.localStorage.getItem(_tokenKey));
+        // Instantiate data when service is loaded
+        if ($window.localStorage.getItem(_userKey) && $window.localStorage.getItem(_userKey) !== 'undefined') {
+            this._user = JSON.parse($window.localStorage.getItem(_userKey));
+        }
+
+        if ($window.localStorage.getItem(_tokenKey) && $window.localStorage.getItem(_tokenKey) !== 'undefined') {
+            this._accessToken = JSON.parse($window.localStorage.getItem(_tokenKey));
+        }
 
         this.getUser = function () {
             return this._user;
@@ -26,7 +32,7 @@
 
         this.setAccessToken = function (token) {
             this._accessToken = token;
-            $window.localStorage.setItem(_tokenKey, token);
+            $window.localStorage.setItem(_tokenKey, JSON.stringify(token));
             return this;
         };
 

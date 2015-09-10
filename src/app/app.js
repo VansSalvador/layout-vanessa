@@ -1,3 +1,5 @@
+/* global angular: false */
+
 (function (angular) {
 
     var app = angular

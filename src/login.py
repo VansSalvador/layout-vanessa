@@ -16,15 +16,18 @@ def login():
     ## must instantiate an AuthUser that is serializable to JSON, unlike the MongoAlchemy data object
     authUser = AuthUser(username=user.username, password=user.password, salt=user.salt, role=user.role)
     if authUser.authenticate(flask.request.json['pass']):
-        return flask.jsonify(username=user.username, role=user.role), 200
+        returnValue = {
+            'user': {
+                'username': user.username,
+                'role': user.role,
+            },
+            'accessToken': {
+                'token': 'TODO-LOGIN'
+            }
+        }
+        return flask.jsonify(returnValue), 200
 
     return getResponse(403)
-
-
-@login_required()
-def logon():
-    user, company = getuser()
-    return flask.jsonify(username=user.username, role=user.role, accessToken=''), 200
 
 
 @login_required()

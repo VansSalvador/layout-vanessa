@@ -1,3 +1,6 @@
+/* global angular: false */
+/* global console: false */
+
 (function (angular) {
 
     /*@ngInject*/

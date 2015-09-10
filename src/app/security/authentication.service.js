@@ -1,13 +1,16 @@
+/* global angular: false */
+
 // http://www.jvandemo.com/learn-how-to-make-authentication-in-your-angular-applications-simpler-and-more-consistent/
 (function (angular) {
 
     function authenticationService($http, authorizationService) {
+        var vm = this;
 
         /**
          * Check whether the user is logged in
          * @returns boolean
          */
-        this.isLoggedIn = function isLoggedIn() {
+        vm.isLoggedIn = function isLoggedIn() {
             return authorizationService.getUser() !== null;
         };
 
@@ -17,7 +20,7 @@
          * @param credentials
          * @returns {*|Promise}
          */
-        this.logIn = function (credentials) {
+        vm.logIn = function (credentials) {
             return $http
                 .post('/login', credentials)
                 .then(function (response) {
@@ -32,11 +35,10 @@
          *
          * @returns {*|Promise}
          */
-        this.logOut = function () {
+        vm.logOut = function () {
             return $http
                 .get('/logout')
                 .then(function (response) {
-
                     // Destroy session in the browser
                     authorizationService.destroy();
                 });

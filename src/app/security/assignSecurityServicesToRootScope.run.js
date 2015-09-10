@@ -1,3 +1,5 @@
+/* global angular: false */
+
 (function (angular) {
 
     function assignSecurityServicesToRootScope($rootScope, authenticationService, authorizationService) {

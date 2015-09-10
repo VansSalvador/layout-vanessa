@@ -21,7 +21,6 @@ login.auth.user_timeout=8*60*60 #8 hours
 server.app.auth.hash_algorithm = lambda to_encrypt: hashlib.sha1(to_encrypt.encode('utf-8'))#prevents encoding error
 
 server.app.add_url_rule('/login','login',login.login,methods=['POST'])
-server.app.add_url_rule('/painel','logon',login.logon)
 server.app.add_url_rule('/logoff','logoff',login.logoff)
 server.app.add_url_rule('/api/listusers','listusers',users.listusers)
 server.app.add_url_rule('/api/deleteuser','deleteuser',users.deleteuser,methods=['POST'])

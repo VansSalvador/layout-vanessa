@@ -1,3 +1,5 @@
+/* global angular: false */
+
 (function (angular) {
 
     angular
@@ -31,6 +33,20 @@
                 .state('painel.principal', {
                     url: '/painel',
                     templateUrl: 'partials/painel.tmpl.html'
+                })
+                .state('painel.listaPedidos', {
+                    url: '/pedido',
+                    templateUrl: 'pedido/pedido.lista.tmpl.html',
+                    controller: 'PedidoListaController',
+                    controllerAs: 'vm',
+                    title: 'Pedidos'
+                })
+                .state('painel.pedido', {
+                    url: '/pedido/{idPedido:[0-9]{1,8}}',
+                    templateUrl: 'pedido/pedido.tmpl.html',
+                    controller: 'PedidoController',
+                    controllerAs: 'vm',
+                    title: 'Pedido'
                 });
         }]);
 

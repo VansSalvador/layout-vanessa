@@ -1,5 +1,6 @@
 Flask==0.10.1
 Flask-Auth==0.85
+Flask-Responses==0.2
 itsdangerous==0.24
 Jinja2==2.8
 MarkupSafe==0.23

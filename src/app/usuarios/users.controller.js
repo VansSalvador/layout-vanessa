@@ -1,12 +1,16 @@
+/* global angular: false */
+/* global $: false */
+/* global alert: false */
+
 (function (angular) {
 
-    function refresh($http) {
+    function refresh($http, $scope) {
         $http.get('/api/listusers').then(function (users) { //TODO animated loading feedback
             $scope.users = users.data;
         }, function (error) {
             alert(error.data); //TODO
         });
-    };
+    }
 
     var app = angular.module('users', []); //can't use the ng-resource because User is an embedded document
     var deletion = false;
@@ -32,7 +36,7 @@
     };
 
     app.controller('userlisting', ['$scope', '$http', function ($scope, $http) {
-        refresh($http);
+        refresh($http, $scope);
         $scope.opendialog = opendialog;
         $scope.confirmdelete = function (user) {
             deletion = user;
@@ -50,7 +54,7 @@
             $http.post('/api/deleteuser', {
                 user: deletion.username
             }).then(function (ok) {
-                refresh($http);
+                refresh($http, $scope);
             }, function (error) {
                 alert(error.data); //TODO
             });
@@ -69,7 +73,7 @@
                 current: editing ? editing.username : false,
             }).then(function (users) { //TODO animated loading feedback
                 $("#dialogUser").dialog("close");
-                refresh($http);
+                refresh($http, $scope);
             }, function (error) {
                 alert(error.data); //TODO
             });
