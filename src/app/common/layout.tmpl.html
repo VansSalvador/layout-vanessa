@@ -1,5 +1,48 @@
-<div data-ng-include="topNavBar/topNavBar.tmpl.html"></div>
-<div data-ng-include="sideNavBar/sideNavBar.tmpl.html"></div>
+<!-- <div data-ng-include="topNavBar/topNavBar.tmpl.html"></div> -->
+<!-- Barra de navegação -->
+<div class="nav-user">
+    <div class="wrap-main">
+        <div class="f-right col_50">
+            <ul class="f-right">
+                <li class="d-inblock">
+                    <a ui-sref="listaChamados"><i class="ico icon-voice"></i><span class="notification">2</span></a>
+                </li>
+                <li class="d-inblock">
+                    <ul class="dropitmenu">
+                        <li>
+                            &bull; <a href="#" class="user-menu">{{::authorizationService.getUserName()}}/s</a>
+                            <ul>
+                                <li><a ui-sref="{{::routeNames.LISTA_USUARIOS}}">Usuários</a></li>
+                                <li><a ui-sref="{{::routeNames.LOGOFF}}">Sair</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Barra de navegação -->
+
+<!-- <div data-ng-include="sideNavBar/sideNavBar.tmpl.html"></div> -->
+<!-- Navegação lateral -->
+<div class="nav-main">
+    <h1><a href="#">EPICOM</a></h1>
+    <span class="t-up">Menu</span>
+    <ul>
+        <li class="menu-vendas"><a href="vendas.html"><i class="ico icon-vendas"></i>Vendas</a></li>
+        <li class="menu-pedidos"><a ui-sref="{{::routeNames.PEDIDOS}}"><i class="ico icon-pedidos"></i>Pedidos</a></li>
+        <li class="menu-produtos active">
+            <a href="produtos.html"><i class="ico icon-produtos"></i>Produtos</a>
+            <ul>
+                <li><a href="produtos-categorias.html" class="active">Categorias</a></li>
+                <li><a href="produtos-categoria-fornecedor.html">Categoria do Fornecedor</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>
+<!-- Navegação lateral -->
+
 <div class="wrap-content">
 	<div ui-view>/div>
 </div>

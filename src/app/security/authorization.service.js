@@ -6,13 +6,17 @@
 
         var _userKey = 'session.user';
         var _tokenKey = 'session.accessToken';
+        
+        function isDefined(value) {
+            return angular.isDefined(value) && value !== 'undefined'; 
+        }
 
         // Instantiate data when service is loaded
-        if ($window.localStorage.getItem(_userKey) && $window.localStorage.getItem(_userKey) !== 'undefined') {
+        if (isDefined($window.localStorage.getItem(_userKey))) {
             this._user = JSON.parse($window.localStorage.getItem(_userKey));
         }
 
-        if ($window.localStorage.getItem(_tokenKey) && $window.localStorage.getItem(_tokenKey) !== 'undefined') {
+        if (isDefined($window.localStorage.getItem(_tokenKey))) {
             this._accessToken = JSON.parse($window.localStorage.getItem(_tokenKey));
         }
 
@@ -24,6 +28,14 @@
             this._user = user;
             $window.localStorage.setItem(_userKey, JSON.stringify(user));
             return this;
+        };
+        
+        this.getUserName = function() {
+            if (isDefined(this._user) && isDefined(this._user.username)) {
+                return this._user.username;
+            }
+            
+            return "<<< USER NAME >>>";
         };
 
         this.getAccessToken = function () {

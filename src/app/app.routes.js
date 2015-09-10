@@ -4,17 +4,19 @@
 
     angular
         .module('appEpicom')
-        .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
+        .config(['$stateProvider', '$urlRouterProvider', 'RouteNames', function ($stateProvider, $urlRouterProvider, RouteNames) {
             // Rota padrão
             $urlRouterProvider.otherwise('/');
 
             $stateProvider
-                .state('loggedOut', {
+                .state(RouteNames.LOGGED_OUT, {
                     url: '/',
                     templateUrl: 'login/login.tmpl.html',
                     controller: 'LoginController',
                     views: {
-                        'main': { templateUrl: 'login/login.tmpl.html' }
+                        'main': {
+                            templateUrl: 'login/login.tmpl.html'
+                        }
                     },
                     data: {
                         requireLogin: false
@@ -23,7 +25,9 @@
                 .state('accessDenied', {
                     url: '/',
                     views: {
-                        'main': { templateUrl: 'security/accessDenied.tmpl.html' }
+                        'main': {
+                            templateUrl: 'security/accessDenied.tmpl.html'
+                        }
                     },
                     data: {
                         requireLogin: false
@@ -35,12 +39,15 @@
                         requireLogin: true
                     },
                     views: {
-                        'main': { templateUrl: 'common/layout.tmpl.html' }
+                        'main': {
+                            templateUrl: 'common/layout.tmpl.html'
+                        }
                     }
                 })
                 .state('painel.principal', {
                     url: '/painel',
-                    templateUrl: 'partials/painel.tmpl.html'
+                    templateUrl: 'home/home.tmpl.html',
+                    controller: 'HomeController',
                 })
                 .state('painel.listaPedidos', {
                     url: '/pedido',
